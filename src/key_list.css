@@ -1,0 +1,27 @@
+.keylist [name=plus] {
+	position: fixed;
+	right:1cm;
+	bottom: 1cm;
+	width: 1.8cm;
+	height: 1.8cm;
+	color:white;
+	font-size: 1.5cm;
+	line-height: 1.8cm;
+	text-align: center;
+	background-color: green;
+	border-radius: 50%;
+	box-shadow: 0.1cm 0.1cm 0.5cm  rgb(0,0,0,1);
+}
+.keylist table {
+	width: 100%;
+}
+
+.keylist input {
+	width: 1cm;
+	height: 1cm;
+}
+	
+	
+.keylist [name=del] {
+	text-align: right;
+}

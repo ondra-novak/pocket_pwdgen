@@ -1,0 +1,21 @@
+<template id="keylist"><div class="window keylist" data-open-anim="anim_open"  data-close-anim="anim_close">>
+<h1><span name="back"> &lt; </span>{{Správce klíčů}}</h1>
+<div class="form">
+<p name="onekey">{{V tuto chvíli máte založený jediný klíč uložený pod jménem}}: <span name="name">jmeno</span></p>
+<table name="tbl">
+<tr>
+<tr name="rows[]">
+<td><input type="radio" value="true" name="prim"></td><td name="name"></td><td name="del">X</td>
+</tr>
+</table>
+<p>{{Obecně není potřeba zakládat další klíče. Tato funkce je užitečná pouze v případě, že dojde k vyzrazení hlavní fráze. Poté je třeba zvolit novou frázi a vygenerovat nový klíč. Starý klíč se použije pro umožňení přihlášení se na internetové stránky za účelem změny hesla}}</p>
+<p class="warning">{{Pokud dojde k vyzrazení fráze, v co nejkratším době proveďte zmenu všech hesel na všech navštěvovaných stránkách}}</p>
+<div name="plus">+</div>
+</div>
+</div>
+</template>
+
+<template id="delconfirm"><div class="modal confirm">
+<p>Do you really want to erase the key: <span name="key"></span></p>
+<p><button name="yes">Yes</button><button name="no">No</button>
+</div></template>

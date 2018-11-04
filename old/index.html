@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<meta charset="UTF-8">
+<title>Pocket password manager</title>
+</head>
+<body onload="PPG.main()">
+
+<template id="generate_key"><div class="genkey window">
+<h1><span name="back"> &lt; </span>Generate new key</h1>
+<div class="form">
+<label><span data-lang>Enter passphrase</span>
+<input type="text" name="passphrase">
+</label>
+<div class="error" name="errshort">Passphrase is too short or empty</div>
+<div class="note">Note: Use several words as passphrase. Never use single password. Never use well known pharse or phrase from a book</div>
+<div class="note">Note: Remember your passphrase. If you forget the passphrase, you will unable to recover stored passwords</div>
+<div class="button_panel button2">
+<button name="back">&lt;&lt; Back</button>
+<button name="generate">Generate key</button>
+</div>
+</div>
+<div class="progress_panel">
+<div class="progress"><div name="progvalue"></div></div>
+</div>
+</div></template>
+
+<template id="add_key_dlg"><div class="window genkey">
+<h1><span name="back"> &lt; </span>Add new key</h1>
+<div class="form">
+<label>Enter a new name of the key
+<input type="text" name="name">
+</label>
+<label>Mark as primary key
+<input type="checkbox" name="setprimary" checked="checked">
+</label>
+<div class="note">If you have multiple keys, the primary key is used to generate passwords for new sites. 
+Note that it is recomended to have only one key at once. Other keys can be used for login to
+sites in order to change passwords to newly generated </div>  
+<div class="button_panel button2">
+<button name="back">&lt;&lt; Back</button>
+<button name="ok">Save</button>
+</div>
+</div>
+
+</div>
+</template>
+
+<template id="keylist"><div class="window keylist">
+<h1><span name="back"> &lt; </span>Active keys</h1>
+<div class="form">
+<table>
+<tr>
+<tr name="rows[]">
+<td><input type="radio" value="true" name="prim"></td><td name="name"></td><td name="del">X</td>
+</tr>
+</table>
+<div name="plus">+</div>
+</div>
+</div>
+</template>
+
+<template id="delconfirm"><div class="modal confirm">
+<p>Do you really want to erase the key: <span name="key"></span></p>
+<p><button name="yes">Yes</button><button name="no">No</button>
+</div></template>
+<template id="mainscreen"><div class="window main">
+<h1><span class="keyman_icon" name="keyman_icon">K</span>Password Manager</h1>
+<div class="form">
+<label>Domain/Site name:
+<input type="text" name="site" value="" placeholder="example.com">
+</label>
+<div class="button_panel button2">
+<button name="scanqr">Scan QR</button>
+<button name="showpwd">Show</button>
+</div>
+
+<h2>Recent sites:</h2>
+<div class="list" name="recent[]">
+<div name="name"></div>
+</div>
+</div>
+</div>
+</template>
+
+<script src="js/tjs/template.js" type="text/javascript"></script>
+<script src="js/hmac-sha256.js" type="text/javascript"></script>
+<script src="js/rnd.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>
