@@ -188,14 +188,14 @@ span[name=back]:active {
 	font-weight: bold;
 }
 .anim_open .form{
-	animation: anim_open 300ms ease 2.457ms 1 normal none running;
+	animation: anim_open 300ms 1 ;
 }
 .anim_close {
-	animation: anim_close_delay 0.3s;
+	animation: anim_close_delay 0.3s 1;
 }
 
 .anim_close .form{
-	animation: anim_close 0.3s;
+	animation: anim_close 0.3s 1;
 }
 @keyframes anim_close_delay {
 	0%{	
@@ -209,21 +209,21 @@ span[name=back]:active {
 @keyframes anim_open {
 	0%{	
 	opacity:0;
-	transform: translate(1cm,0);
+	transform: translate(5%,0) scale(0.95,1);
 	}
 	100%{
 		opacity:1;
-		transform: translate(0,0);
+		transform: translate(0,0) scale(1,1);
 	}
 }
 @keyframes anim_close {
 	100%{	
 	opacity:0;
-	transform: translate(-1cm,0);
+	transform: translate(-5%,0)  scale(0.95,1);
 	}
 	0%{	
 	opacity:1;
-	transform: translate(0,0);
+	transform: translate(0,0)  scale(1,1);
 	}
 }
 

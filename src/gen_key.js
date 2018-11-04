@@ -36,8 +36,7 @@
 					});					
 				}
 			}
-			
-			v.open();
+					
 			v.setCancelAction(cancel.bind(this,"canceled"),"back");
 			v.setDefaultAction(doGenerate.bind(this), "generate");			
 		}.bind(this));
