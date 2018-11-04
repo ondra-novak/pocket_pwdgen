@@ -1,6 +1,3 @@
-[submodule "js/tjs"]
-	path = js/tjs
-	url = https://github.com/ondra-novak/template.js
 [submodule "src/template"]
 	path = src/template
 	url = https://github.com/ondra-novak/template.js.git
