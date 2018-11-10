@@ -3,6 +3,9 @@
 //!require keyfn.js
 //!require hmac-sha256.js
 
+//!require gen_key.html
+//!require gen_key.css
+
 (function(){
 
 

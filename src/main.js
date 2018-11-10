@@ -2,6 +2,12 @@
 //!require template/template.js
 //!require keystore.js
 
+//!require welcome.js
+//!require gen_key.js
+//!require key_list.js
+//!require main_page.js
+//!require @svc service_worker.js
+
 (function(){
 	"use strict";
 	

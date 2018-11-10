@@ -1,6 +1,10 @@
 //!require ppg_ns.js
 //!require layout.js
 
+//!require welcome.css
+//!require welcome.html
+
+
 (function(){
 	"use strict";
 	

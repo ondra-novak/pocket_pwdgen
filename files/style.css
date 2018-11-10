@@ -230,3 +230,64 @@ span[name=back]:active {
 	font-weight: bold;
 }
 
+h2.center {
+	text-align: center;
+}
+div.genkey .form label input {
+	text-align: center;
+} 
+.keylist [name=plus] {
+	position: fixed;
+	right:1cm;
+	bottom: 1cm;
+	width: 1.8cm;
+	height: 1.8cm;
+	color:white;
+	font-size: 1.5cm;
+	line-height: 1.8cm;
+	text-align: center;
+	background-color: green;
+	border-radius: 50%;
+	box-shadow: 0.1cm 0.1cm 0.5cm  rgb(0,0,0,1);
+}
+.keylist table {
+	width: 100%;
+}
+
+.keylist input {
+	width: 1cm;
+	height: 1cm;
+}
+	
+	
+.keylist [name=del] {
+	text-align: right;
+}
+.main input {
+	text-align: center;
+	font-size: 1.5em;
+} 
+
+
+div.list {
+	max-height: 30vh;
+	overflow: scroll;
+	border:  1px solid;
+	background: white;
+	padding: 0.2cm 0.5cm;
+	margin: 0 0.5cm;
+} 
+
+div.list div {
+	line-height: 2em;
+	text-align: center;
+}
+.keyman_icon {
+	display:block;
+	float:right;
+	width: 2em;
+	height:  2em;
+	/* border: 1px solid; */
+	/* text-align: right; */
+}
+

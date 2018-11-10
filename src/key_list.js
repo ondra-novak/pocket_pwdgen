@@ -2,8 +2,12 @@
 //!require layout.js
 //!require keystore.js
 
+//!require key_list.html
+//!require key_list.css
+
 (function(){
-	
+
+	"use strict;"
 
 	function key_list() {
 		

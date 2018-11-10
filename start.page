@@ -1,9 +1,9 @@
 !charset utf-8
 !defer_css yes
 !defer_script yes
+!css files/style.css
+!js files/code.js
+!output svc,service_worker.js
 !entry_point PPG.main()
-src/welcome
 src/main
-src/gen_key
-src/key_list
  

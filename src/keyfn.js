@@ -1,4 +1,6 @@
 //!require ppg_ns.js
+//!require rnd.js
+//!require hmac-sha256.js
 
 (function(){
 	
