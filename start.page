@@ -3,7 +3,7 @@
 !defer_script yes
 !css files/style.css
 !js files/code.js
-!output svc,service_worker.js
+!output @svc service_worker.js
 !entry_point PPG.main()
 src/main
  
