@@ -18,7 +18,7 @@ PPG.KeyStore = {
 			},
 			list: function() {
 				return Object.keys(localStorage)
-					.filter(function(x) {return x.startsWith("key_")})
+					.filter(function(x) {return x.startsWith("key_");})
 					.map(function(x) {return x.substr(4);});
 			},
 			empty: function() {

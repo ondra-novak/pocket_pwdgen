@@ -1,3 +1,13 @@
 div.genkey .form label input {
 	text-align: center;
 } 
+
+button.right {
+	display:block;
+	float:right;
+}
+
+textarea[name=passphrase] {
+	text-align: center;
+	font-size: 1em;
+}

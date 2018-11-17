@@ -1,6 +1,7 @@
 .main input {
 	text-align: center;
 	font-size: 1.5em;
+	box-sizing: border-box;
 } 
 
 
@@ -23,5 +24,6 @@ div.list div {
 	width: 2em;
 	height:  2em;
 	/* border: 1px solid; */
+	z-index: 2;
 	/* text-align: right; */
 }

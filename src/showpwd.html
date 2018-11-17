@@ -1,0 +1,26 @@
+<template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
+<h1><span data-name="back"> &lt; </span>{{Heslo}}</h1>
+<div class="form">
+<label>{{Doména}}:
+<input type="text" name="site" value=""  readonly="readonly">
+</label>
+<label>{{Heslo}}:
+<span class="order">{{Pozice}}: <span name="order">0</span></span>
+<input type="text" name="pwd" value=""  readonly="readonly">
+</label>
+</div>
+<div class="options form">
+<div class="button2">
+<button name="prev"><span class="left arrows">&lt;&lt;</span> {{Předchozí<br>heslo}}</button>
+<button name="next"><span class="right arrows">&gt;&gt;</span>{{Další<br>heslo}}</button>
+</div>
+<label>{{Použít jiný klíč}}
+<select name="chngkey"><option value="">--{{vyber klíč}}--</option></select>
+</label>
+
+</div>
+<div class="button_panel button2">
+<button name="remember">{{Uložit}}</button>
+<button name="restore">{{Obnovit}}</button>
+</div>
+</div></template>

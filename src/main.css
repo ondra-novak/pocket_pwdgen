@@ -14,10 +14,16 @@ body {
 	height: 100vh;
 	overflow: auto;
 	position: relative;
+	/* box-sizing: border-box; */
 }
 
-input, button{
+input, button, select{
 	font-size: 1rem;
+}
+
+select {
+	padding: 0.5em;
+	text-align: center;
 }
 
 button {
@@ -149,7 +155,7 @@ light-box {
 	min-height: 2rem;
 }
 
-.form label input , .form label textarea{
+.form label input , .form label textarea, .form label select{
 	display: block;
 	width: 100%;
 	padding: 0.5rem 0;
@@ -169,6 +175,12 @@ light-box {
 
 .button2 button {
 	width:45%;
+	white-space: nowrap;
+	min-width: 3cm;
+} 
+
+.button1 button {
+	width:100%;
 	white-space: nowrap;
 	min-width: 3cm;
 } 
@@ -230,3 +242,7 @@ span[name=back]:active {
 	font-weight: bold;
 }
 
+
+.form label {
+	
+}

@@ -1,0 +1,51 @@
+.arrows {
+	display:block;
+	width: 1em;
+	padding: 0.5em;
+}
+.left.arrows {
+	float:left;
+}
+
+.right.arrows {
+	float:right;
+}
+
+.showpwd .options .button2{
+	text-align: center;
+}
+
+.showpwd .order {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.showpwd button[name=remember] {
+	animation-name: pulse;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+	background-color: lime;
+}
+
+.showpwd button[name=remember]:disabled {
+	animation: none;
+	background-color: inherit;
+}	
+
+@keyframes pulse {
+	0% {
+		transform: scale(1,1);
+	}
+	50% {
+		transform: scale(1,1);
+	}
+	75% {
+		transform: scale(1.1,1.1);
+	}
+	100% {
+		transform: scale(1,1);
+	}
+}

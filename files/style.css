@@ -14,10 +14,16 @@ body {
 	height: 100vh;
 	overflow: auto;
 	position: relative;
+	/* box-sizing: border-box; */
 }
 
-input, button{
+input, button, select{
 	font-size: 1rem;
+}
+
+select {
+	padding: 0.5em;
+	text-align: center;
 }
 
 button {
@@ -149,7 +155,7 @@ light-box {
 	min-height: 2rem;
 }
 
-.form label input , .form label textarea{
+.form label input , .form label textarea, .form label select{
 	display: block;
 	width: 100%;
 	padding: 0.5rem 0;
@@ -169,6 +175,12 @@ light-box {
 
 .button2 button {
 	width:45%;
+	white-space: nowrap;
+	min-width: 3cm;
+} 
+
+.button1 button {
+	width:100%;
 	white-space: nowrap;
 	min-width: 3cm;
 } 
@@ -230,12 +242,26 @@ span[name=back]:active {
 	font-weight: bold;
 }
 
+
+.form label {
+	
+}
 h2.center {
 	text-align: center;
 }
 div.genkey .form label input {
 	text-align: center;
 } 
+
+button.right {
+	display:block;
+	float:right;
+}
+
+textarea[name=passphrase] {
+	text-align: center;
+	font-size: 1em;
+}
 .keylist [name=plus] {
 	position: fixed;
 	right:1cm;
@@ -263,9 +289,61 @@ div.genkey .form label input {
 .keylist [name=del] {
 	text-align: right;
 }
+.arrows {
+	display:block;
+	width: 1em;
+	padding: 0.5em;
+}
+.left.arrows {
+	float:left;
+}
+
+.right.arrows {
+	float:right;
+}
+
+.showpwd .options .button2{
+	text-align: center;
+}
+
+.showpwd .order {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.showpwd button[name=remember] {
+	animation-name: pulse;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-out;
+	background-color: lime;
+}
+
+.showpwd button[name=remember]:disabled {
+	animation: none;
+	background-color: inherit;
+}	
+
+@keyframes pulse {
+	0% {
+		transform: scale(1,1);
+	}
+	50% {
+		transform: scale(1,1);
+	}
+	75% {
+		transform: scale(1.1,1.1);
+	}
+	100% {
+		transform: scale(1,1);
+	}
+}
 .main input {
 	text-align: center;
 	font-size: 1.5em;
+	box-sizing: border-box;
 } 
 
 
@@ -288,6 +366,7 @@ div.list div {
 	width: 2em;
 	height:  2em;
 	/* border: 1px solid; */
+	z-index: 2;
 	/* text-align: right; */
 }
 

@@ -255,6 +255,15 @@ RNG.roller = function(expr, rng) {
 return RNG;
 })();
 
+PPG.default_config = {
+		chunks: 3,
+		chunklen_min: 4,
+		chunklen_max: 5,
+		upper_chars: 2
+};
+
+ 
+
 (function(){
 	
 	function prepareKey(secret, domain, index) {
@@ -311,12 +320,12 @@ return RNG;
 	
 	var charset1="bcdfghjklmnpqrstvwxz";
 	var charset2="aeiouy";
-	var symbols=   "-:.+/";
+	var symbols=   "/*-+.,";
 	
 	
 	function generate_password(rnd, cfg) {
 		
-		if (cfg === undefined) cfg = default_config;
+		if (cfg === undefined) cfg = PPG.default_config;
 		
 		function get_char(charset) {
 			return charset.charAt(rnd.random(0,charset.length));
@@ -376,7 +385,7 @@ return RNG;
 	
 })();
 //service_worker will be here
-//timestamp: 1542317117
+//timestamp: 1542455303
 
 
 

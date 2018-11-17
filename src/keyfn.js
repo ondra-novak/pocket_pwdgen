@@ -1,6 +1,7 @@
 //!require ppg_ns.js
 //!require rnd.js
 //!require hmac-sha256.js
+//!require config.js
 
 (function(){
 	
@@ -58,12 +59,12 @@
 	
 	var charset1="bcdfghjklmnpqrstvwxz";
 	var charset2="aeiouy";
-	var symbols=   "-:.+/";
+	var symbols=   "/*-+.,";
 	
 	
 	function generate_password(rnd, cfg) {
 		
-		if (cfg === undefined) cfg = default_config;
+		if (cfg === undefined) cfg = PPG.default_config;
 		
 		function get_char(charset) {
 			return charset.charAt(rnd.random(0,charset.length));

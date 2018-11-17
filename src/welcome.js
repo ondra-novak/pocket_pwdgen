@@ -18,7 +18,7 @@
 					next(idx-1);
 					}, "back" );				
 				v.setDefaultAction(function(){
-					next(idx+1)
+					next(idx+1);
 					},"next");
 			}.bind(this));
 		}

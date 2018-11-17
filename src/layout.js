@@ -9,6 +9,7 @@
 			load:function(n) {
 				var v = new TemplateJS.View.fromTemplate(n);
 				var p;
+				v._installFocusHandler();
 				if (this.curView) {
 					p = this.curView.replace(v);
 				} else {
@@ -18,7 +19,7 @@
 				return {
 					v:v,
 					p:p
-				}				
+				};				
 			}
 	};
 	

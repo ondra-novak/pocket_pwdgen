@@ -1,19 +1,18 @@
 <template id="generate_key"><div class="genkey window" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span name="back"> &lt; </span>{{Nastavení hlavní fráze}}</h1>
+<h1><span data-name="back"> &lt; </span>{{Nastavení hlavní fráze}}</h1>
 <div class="form">
-<label><span data-lang>{{Vložte hlavní frázi}}</span>
+<label><span data-lang>{{Zaznamenejte si následující frázi}}</span>
 <textarea name="passphrase" rows="3"></textarea>
 </label>
-<div class="error" name="errshort">{{Fráze je příliš krátká. Zkuste zadat aspoň 16 písmen}}</div>
+<div class="error" data-name="errshort">{{Fráze je příliš krátká. Zkuste zadat aspoň 16 písmen}}</div>
+<button class="right" name="randombtn">{{Nová<br>fráze}}</button>
 <ul class="note">
-<li>{{Vymyslete si dlouhou frázi}} 
-<li>{{Zkuste na zadání využít celé vstupní okénko}}
+<li>{{Pokud provádíte obnovu, přepište nabízenou frázi uloženou frází}} 
 <li>{{Nevkládejte známé fráze nebo přísloví}}
-<li>{{Zaznamenejte si dobře zadanou frázi a zaznamenanou frázi uložte na bezpečném místě}}
 <li>{{Malá a velká písmena se rozlišují, diakritická znaménka se také rozlišují. Mezery mezi slovy se redukují na jednu mezeru, znak nové řádky se mění na mezeru}}
 </ul>
 <div class="progress_panel">
-<div class="progress"><div name="progvalue"></div></div>
+<div class="progress"><div data-name="progvalue"></div></div>
 </div>
 </div>
 
@@ -24,15 +23,19 @@
 </div></template>
 
 <template id="add_key_dlg"><div class="window genkey" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span name="back"> &lt; </span>{{Přidat hlavní klíč}}</h1>
+<h1><span data-name="back"> &lt; </span>{{Přidat hlavní klíč}}</h1>
 <div class="form">
 <label>{{Pojmenujte nově vytvořený klíč}}
 <input type="text" name="name">
 </label>
-<div class="error" name="errshort">{{Toto pole nesmí zůstat prázdné}}</div>
+<div class="error" data-name="errshort">{{Toto pole nesmí zůstat prázdné}}</div>
 <label>{{Hlavní klíč}}
 <input type="checkbox" name="setprimary" checked="checked">
 </label>
+<label><span data-lang>{{Zopakujte zadání hlavní fráze<br>(pro kontrolu)}}</span>
+<textarea name="passphrase" rows="3"></textarea>
+</label>
+<div class="error" data-name="notmatch">{{Zadaná fráze neodpovídá původní frázi. Zkuste to znovu}}</div>
 </div>
 <div class="button_panel button2">
 <button name="back">&lt;&lt; {{Back}}</button>
@@ -40,3 +43,14 @@
 </div>
 </div>
 </template>
+
+<template id="add_key_conf"><div class="window genkey_done" data-open-anim="anim_open"  data-close-anim="anim_close">
+<h1>{{Přidat hlavní klíč}}</h1>
+<div class="form">
+<h2>Klíč byl nastaven</h2>
+</div>
+<div class="button_panel button2">
+<button name="ok">{{OK}}</button>
+</div>
+
+</div></template>

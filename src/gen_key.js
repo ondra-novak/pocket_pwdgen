@@ -2,6 +2,7 @@
 //!require layout.js
 //!require keyfn.js
 //!require hmac-sha256.js
+//!require words.js
 
 //!require gen_key.html
 //!require gen_key.css
@@ -15,6 +16,17 @@
 		return new Promise(function(ok, cancel){
 			
 			var v = this.layout.load("generate_key").v;
+			
+			function randomPhrase() {
+				var s = "";
+				var array = new Uint32Array(12);
+				window.crypto.getRandomValues(array);
+				array.forEach(function(x){
+					x = x % PPG.wordlist.length;
+					s = s + " " + PPG.wordlist[x];
+				});
+				v.setItemValue("passphrase", s.substr(1));
+			}
 			
 			
 			function doGenerate() {
@@ -35,13 +47,15 @@
 							}
 						});
 					}).then(function(x){
-						ok(x);
+						ok({p:txt,k:x});
 					});					
 				}
 			}
 					
 			v.setCancelAction(cancel.bind(this,"canceled"),"back");
 			v.setDefaultAction(doGenerate.bind(this), "generate");			
+			v.setItemEvent("randombtn","click",randomPhrase);
+			randomPhrase();
 		}.bind(this));
 	}
 
@@ -56,13 +70,23 @@
 					var res = v.readData();
 					if (res.name.length == 0) {
 						v.mark("errshort");
+					} else if (res.passphrase != x.p) {
+						v.mark("notmatch");					
 					} else {
-						res.key = x;					
+						res.key = x.k;					
 						ok(res);
 					}
 				},"ok");
 			}.bind(this));
-		}.bind(this));		
+		}.bind(this))
+		.then(function(x){
+			return new Promise(function(ok) {
+				var v = this.layout.load("add_key_conf").v;
+				v.setDefaultAction(function(){
+					ok(x);
+				},"ok");
+			}.bind(this));
+		}.bind(this));
 	}
 
 	PPG.add_new_key_dlg = add_new_key_dlg;

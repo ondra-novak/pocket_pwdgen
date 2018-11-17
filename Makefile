@@ -1,5 +1,5 @@
 PAGES:=start 
-TARGETS:=en cz
+TARGETS:=en cs
 
 ALL_BUILDS:=$(foreach n,$(TARGETS),$(addsuffix _$(n).html,$(PAGES)))
 DEBUG_BUILDS:=$(ALL_BUILDS:.html=_debug.html)
