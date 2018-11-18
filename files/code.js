@@ -2057,6 +2057,7 @@ PPG.wordlist = [ "abandon", "ability", "able", "about", "above", "absent",
 				} else {
 					v.enableItem("generate",false);
 					v.enableItem("randombtn",false);
+					v.enableItem("passphrase",false);
 					this.prepareSecret(txt,50000,function(x) {
 						if (!v.getRoot().isConnected) throw new Error("canceled");
 						if (x > c) c = x;
@@ -10803,6 +10804,7 @@ PPG.domain_sfx={"ac":false,
 	"use strict";
 	
 	function normalize_domain(text) {
+		text = text.trim();
 		if (text.startsWith("http://")) text = text.substr(7);
 		else if (text.startsWith("https://")) text = text.substr(8);
 		
