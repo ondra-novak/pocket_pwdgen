@@ -1,0 +1,17 @@
+.settings .panel {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.settings .panel button {
+    margin: 5vmin;
+    width: 37vmin;
+    height: 27vmin;
+    border: 0;
+    background: linear-gradient(to bottom, #c3cbd4 0%,#dbdbdb 65%,#d1d1d1 66%,#fefefe 100%);
+}
+
+.settings .panel button:active {
+    background: linear-gradient(to bottom, #fefefe 0%, #d1d1d1 65%,#dbdbdb 66%,#adc4dc 100%);
+    transform: translate(0.5vmin,0.5vmin);
+}

@@ -1,4 +1,4 @@
-<template id="mainscreen"><div class="window main">
+<template id="mainscreen"><div class="window main"  data-open-anim="anim_open"  data-close-anim="anim_close">
 <h1><button class="keyman_icon" name="keyman_icon">K</button>{{Správce hesel}}</h1>
 <div class="form">
 <label>{{Doména nebo jméno stránky}}:
@@ -7,8 +7,8 @@
 <div class="error" data-name="errshort">{{Pole nesmí být prázdné}}</div>
 
 <h2>{{Poslední zadané}}</h2>
-<div class="list" data-name="recent[]">
-<div data-name="name"></div>
+<div class="list">
+<button data-name="recent[]"></button>
 </div>
 </div>
 <div class="button_panel button2">

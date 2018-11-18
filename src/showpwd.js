@@ -2,6 +2,7 @@
 //!require showpwd.css
 //!require keyfn.js
 //!require keystore.js
+//!require domain_norm.js
 
 (function(){
 	
@@ -9,22 +10,24 @@
 	
 	
 	PPG.showpwd = function(site) {
-		var p;
-		if (site.startsWith("http://")) site = site.substr(7);
-		if (site.startsWith("https://")) site = site.substr(8);
-
-		if (site.startsWith("www.")) site = site.substr(4);
-		var p = site.indexOf('/');
-		if (p != -1) site = site.substr(0,p);
+		var site = PPG.normalize_domain(site)
 		
 		var siteInfo = PPG.KeyStore.getSite(site);
 		var origSiteInfo;
+		var newsite = false;
 		
 		if (siteInfo.time) {
 			PPG.KeyStore.setSite(site,siteInfo.key, siteInfo.index);
-			origSiteInfo = PPG.KeyStore.getSite(site);
 		} else {
-			origSiteInfo = {};
+			newsite = true;
+		}
+		origSiteInfo = PPG.KeyStore.getSite(site);
+		
+		function checkDNS(domain) {
+			return fetch("https://cloudflare-dns.com/dns-query?name="+encodeURIComponent(domain),
+					{"headers":{"accept":"application/dns-json"}})
+					.then(function(x) {return x.json();})
+					.then(function(x) {return x.Status == 0});
 		}
 		
 		function update(v) {
@@ -35,14 +38,21 @@
 			v.setItemValue("order", siteInfo.index+1);
 			v.enableItem("prev", siteInfo.index > 0);
 			var restore = siteInfo.key != origSiteInfo.key || siteInfo.index != origSiteInfo.index;
-			v.enableItem("remember", restore);
-			v.enableItem("restore", restore);
+			v.enableItem("remember", restore || newsite);
+			v.showItem("restore", restore);
 		}
 		
+				
 		return new Promise(function(ok) {
 			var v = this.layout.load("showpwd").v;
 
-			v.setItemValue("chngkey", PPG.KeyStore.list());
+			checkDNS(site).then(function(x) {
+				if (!x) v.mark("err_notfound");
+			})
+			
+			var klist = PPG.KeyStore.list();
+			v.showItem("dkey",klist.length>1);
+			v.setItemValue("chngkey", klist);
 			update(v);
 			
 			v.setItemValue("site",site);
@@ -62,6 +72,7 @@
 			v.setItemEvent("remember","click",function(){
 				PPG.KeyStore.setSite(site,siteInfo.key,siteInfo.index);
 				origSiteInfo = PPG.KeyStore.getSite(site);
+				newsite = false;
 				update(v);
 			});
 			v.setItemEvent("chngkey","change",function(e){

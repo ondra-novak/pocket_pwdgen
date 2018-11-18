@@ -1,5 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
 
 <meta charset="utf-8" />
 </head>
@@ -87,16 +88,20 @@
 </template>
 
 <template id="generate_key"><div class="genkey window" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span data-name="back"> &lt; </span>Nastavení hlavní fráze</h1>
+<h1><button data-name="back"> &lt; </button>Nastavení hlavní fráze</h1>
 <div class="form">
-<label><span data-lang>Zaznamenejte si následující frázi</span>
+<label><span>Zaznamenejte si následující frázi</span>
 <textarea name="passphrase" rows="3"></textarea>
 </label>
 <div class="error" data-name="errshort">Fráze je příliš krátká. Zkuste zadat aspoň 16 písmen</div>
 <button class="right" name="randombtn">Nová<br>fráze</button>
+<label><span>Kontrolní kód: </span>
+<input name="checkf" class="checkf" readonly="readonly">
+</label>
+
 <ul class="note">
-<li>Pokud provádíte obnovu, přepište nabízenou frázi uloženou frází 
-<li>Nevkládejte známé fráze nebo přísloví
+<li>Frázi a konrolní kód si zaznamenejte na papír a dobře uschovejte
+<li>Pokud provádíte obnovu, přepište obsah okénka uloženou frází 
 <li>Malá a velká písmena se rozlišují, diakritická znaménka se také rozlišují. Mezery mezi slovy se redukují na jednu mezeru, znak nové řádky se mění na mezeru
 </ul>
 <div class="progress_panel">
@@ -111,7 +116,7 @@
 </div></template>
 
 <template id="add_key_dlg"><div class="window genkey" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span data-name="back"> &lt; </span>Přidat hlavní klíč</h1>
+<h1><button data-name="back"> &lt; </button>Přidat hlavní klíč</h1>
 <div class="form">
 <label>Pojmenujte nově vytvořený klíč
 <input type="text" name="name">
@@ -120,10 +125,14 @@
 <label>Hlavní klíč
 <input type="checkbox" name="setprimary" checked="checked">
 </label>
-<label><span data-lang>Zopakujte zadání hlavní fráze<br>(pro kontrolu)</span>
+<label data-name="check"><span data-lang>Zopakujte zadání hlavní fráze<br>(pro kontrolu)</span>
 <textarea name="passphrase" rows="3"></textarea>
 </label>
 <div class="error" data-name="notmatch">Zadaná fráze neodpovídá původní frázi. Zkuste to znovu</div>
+<label data-name="check"><span>Kontrolní kód: </span>
+<input name="checkf" class="checkf">
+</label>
+<div class="error" data-name="notcodematch">Kontrolní kód je jiný</div>
 </div>
 <div class="button_panel button2">
 <button name="back">&lt;&lt; Back</button>
@@ -135,6 +144,10 @@
 <template id="add_key_conf"><div class="window genkey_done" data-open-anim="anim_open"  data-close-anim="anim_close">
 <h1>Přidat hlavní klíč</h1>
 <div class="form">
+<svg id="Layer_1" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+	.st0{fill:#31AF91;}
+	.st1{fill:#FFFFFF;}
+</style><g><circle class="st0" cx="64" cy="64" r="64"/></g><g><path class="st1" d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z"/></g></svg>
 <h2>Klíč byl nastaven</h2>
 </div>
 <div class="button_panel button2">
@@ -144,7 +157,7 @@
 </div></template>
 
 <template id="keylist"><div class="window keylist" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span name="back"> &lt; </span>Správce klíčů</h1>
+<h1><button name="back"> &lt; </button>Správce klíčů</h1>
 <div class="form">
 <p name="onekey">V tuto chvíli máte založený jediný klíč uložený pod jménem: <span name="name" class="bold">jmeno</span></p>
 <table name="tbl">
@@ -166,33 +179,37 @@
 </div></template>
 
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span data-name="back"> &lt; </span>Heslo</h1>
+<h1><button data-name="back"> &lt; </button>Heslo</h1>
 <div class="form">
 <label>Doména:
 <input type="text" name="site" value=""  readonly="readonly">
 </label>
+<div class="error" data-name="err_notfound">Pozor! Selhalo ověření domény. Zkontrolujte, zda jméno neobsahuje překlep</div>
 <label>Heslo:
 <span class="order">Pozice: <span name="order">0</span></span>
 <input type="text" name="pwd" value=""  readonly="readonly">
 </label>
 </div>
 <div class="options form">
-<div class="button2">
+<div class="button2 panel">
 <button name="prev"><span class="left arrows">&lt;&lt;</span> Předchozí<br>heslo</button>
 <button name="next"><span class="right arrows">&gt;&gt;</span>Další<br>heslo</button>
 </div>
-<label>Použít jiný klíč
+<label name="dkey">Použít jiný klíč
 <select name="chngkey"><option value="">--vyber klíč--</option></select>
 </label>
+<div class="button2  panel">
+<button name="restore">Obnovit</button>
+</div>
 
 </div>
 <div class="button_panel button2">
+<button name="back">&lt;&lt;Zpět</button>
 <button name="remember">Uložit</button>
-<button name="restore">Obnovit</button>
 </div>
 </div></template>
 
-<template id="mainscreen"><div class="window main">
+<template id="mainscreen"><div class="window main"  data-open-anim="anim_open"  data-close-anim="anim_close">
 <h1><button class="keyman_icon" name="keyman_icon">K</button>Správce hesel</h1>
 <div class="form">
 <label>Doména nebo jméno stránky:
@@ -201,8 +218,8 @@
 <div class="error" data-name="errshort">Pole nesmí být prázdné</div>
 
 <h2>Poslední zadané</h2>
-<div class="list" data-name="recent[]">
-<div data-name="name"></div>
+<div class="list">
+<button data-name="recent[]"></button>
 </div>
 </div>
 <div class="button_panel button2">
@@ -212,6 +229,64 @@
 
 </div>
 </template>
+
+<template id="settings"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
+<h1><button data-name="back"> &lt; </button>Nastavení</h1>
+<div class="form">
+<div class="panel">
+<button name="keys">Správa klíčů</button>
+<button name="lang">Změna jazyka</button>
+<button name="reset">Vše smazat</button>
+</div>
+</div>
+<div class="button_panel button2">
+<button name="back">&lt;&lt; Zpět</button>
+</div>
+</div></template>
+
+<template id="wipe"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
+<h1><button data-name="back"> &lt; </button>Vše smazat</h1>
+<div class="form">
+<h2>Opravdu si přejete smazat všechny klíče a nastavení?</h2>
+</div>
+<div class="button_panel button2">
+<button name="back">Ne</button>
+<button name="ok">Ano</button>
+</div>
+</div>
+</template>
+
+<template id="qrscanner"><div class="window qrscanner">
+<h1><button data-name="back"> &lt; </button>Čtečka QR</h1>
+<div class="error_msg_space">
+<div class="error" name="err_notallow">Fotoaparát je zakázán. Prosím povolte použití fotoaparátu</div>
+<div class="error" name="err_notfound">Pro tuto funkci je vyžadována přítomnost fotoaparátu v zařízení. Fotoaparát však nebyl nalezen nebo není správně zapojen či nastaven</div>
+<div class="error" name="err_notwork">Fotoaparát ve vašem zařízení zřejmě nefunguje</div>
+<div class="error" name="err_security">Z bezpečnostních důvodů vaše zařízení blokuje použití fotoaparátu. Prosím zajištěte odstranění blokace.</div>
+<div class="error" name="err_internal">Nastala neznámá chyba:<spam name="err_name"></spam></div>
+</div>
+<canvas name="out-canvas" class="hidden_canvas"  width="320" height="240"></canvas>
+
+<div class="wrap">
+<div class="video_space" name="video_info">
+<video name="video_view" autoplay></video>
+<div class="overlay">
+<div class="left upper inner"></div>
+<div class="left upper outer"></div>
+<div class="right upper inner"></div>
+<div class="right upper outer"></div>
+<div class="left bottom inner"></div>
+<div class="left bottom outer"></div>
+<div class="right bottom inner"></div>
+<div class="right bottom outer"></div>
+</div>
+</div>
+</div>
+<div class="button_panel button2">
+<button name="back">&lt;&lt; Back</button>
+</div>
+
+</hf-popup></template>
 
 <script defer src="files/code.js" type="text/javascript"/></script>
 <script type="text/javascript">

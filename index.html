@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Password Manager</title>
+<meta charset="utf-8">
+<style>
+html {
+    width: 100vmin;
+    margin: auto;
+    font-size: 4vmin;
+    background-color: #e6e6e6;
+}
+body {
+    margin: 0;
+    padding:  5vmin;
+    min-height: 90vh;
+}
+#langlist {width: 100%;box-sizing: border-box;display: flex;flex-direction: column;min-height: 90vh;align-items: center;justify-content: center;}
+#langlist button {display: block;width: 100%;box-sizing: border-box;font-size: 8vmin;padding: 4vmin;margin-bottom: 4vmin;}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+var x = localStorage["lang"];
+
+var supported_langs = {
+		"en":"English",
+		"cs":"Česky"
+};
+
+function open_lang(x) {
+	location.href="start_"+x+".html";
+	localStorage["lang"] = x;
+}
+
+if (x !== undefined && supported_langs[x]) {
+	open_lang(x);
+} else {
+document.body.onload = function() {
+	var ll = document.getElementById("langlist");
+	for (var l in supported_langs) {
+		var t = document.createElement("button");
+		t.innerText = supported_langs[l];
+		t.classList.add(l);
+		t.addEventListener("click",function(l){
+			open_lang(l);
+		}.bind(null,l));
+		ll.appendChild(t);
+	}
+};	
+	
+}
+</script>
+<div id="langlist"><h1>Choose language</h1></div>
+</body>
+</html>

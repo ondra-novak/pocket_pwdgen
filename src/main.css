@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+[hidden] {
+	display: none !important;
+}
 
 html {
 	font-size: 0.5cm;
@@ -12,7 +15,7 @@ body {
 	width: 100vmin;
 	padding:0;
 	height: 100vh;
-	overflow: auto;
+	overflow-x:hidden;
 	position: relative;
 	/* box-sizing: border-box; */
 }
@@ -36,6 +39,7 @@ button {
 
 button:active {
 	background-color: #FC8;
+	transform:translate(2px,2px);
 }
 
 .window {
@@ -47,6 +51,8 @@ button:active {
 	/* margin-bottom: 1cm; */
 	padding-bottom: 3em;
 }
+
+.window button {padding: 0.15cm 0.3cm;vertical-align: middle;/* height: 50%; */margin-right: 0.5em;}
 
 .modal {
 	position: absolute;
@@ -91,6 +97,7 @@ light-box {
 	left:  0;
 	right: 0;
 	z-index: 1;
+	vertical-align: middle;
 }
 
 .progress_panel {

@@ -22,9 +22,36 @@
 			
 					location.hash = "#site="+encodeURIComponent(d.site);
 				}.bind(this),"showpwd");
-		v.setItemEvent("keyman_icon","click",function() {
+/*		v.setItemEvent("keyman_icon","click",function() {
 					location.hash = "#keys";
+			});*/
+		v.setItemEvent("keyman_icon","click",function() {
+			PPG.settings().then(PPG.main_page.bind(PPG));
+		});
+		v.setItemEvent("scanqr","click",function() {
+			var qrr = new PPG.QRReader(function(site) {
+				location.hash="#site="+encodeURIComponent(site);
 			});
+			qrr.show().then(PPG.main_page.bind(PPG));				
+		});
+		var ss =PPG.KeyStore.listSites().sort(function(a,b){
+			var ta = PPG.KeyStore.getSite(a);
+			var tb = PPG.KeyStore.getSite(b);
+			return tb.time - ta.time;
+		}).slice(0,20).map(function(x){
+			return {
+				"":{
+					"value":x,
+					"!click":function() {
+						location.hash = "#site="+encodeURIComponent(x);
+					}
+				}
+			};
+		});
+		
+		v.setItemValue("recent",ss);		
+		
+		
 	};
 	
 	

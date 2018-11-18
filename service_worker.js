@@ -383,9 +383,13 @@ PPG.default_config = {
 
 	PPG.generatePassword = generate_password;
 	
+	PPG.check_code = function(x) {
+		return CryptoJS.HmacSHA256("check",x).toString().substr(0,4);
+	}
+	
 })();
 //service_worker will be here
-//timestamp: 1542455303
+//timestamp: 1542582029
 
 
 

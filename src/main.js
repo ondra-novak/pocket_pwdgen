@@ -7,6 +7,8 @@
 //!require key_list.js
 //!require main_page.js
 //!require @svc service_worker.js
+//!require settings.js
+//!require qrreader.js
 
 (function(){
 	"use strict";
@@ -31,6 +33,13 @@
 			});
 		} else if (h == "keys") {
 			PPG.key_list().then(function(){
+				window.history.back();
+			});
+		} else if (h == "qr") {
+			var qrr = new PPG.QRReader(function(site) {
+				location.href
+			});
+			qrr.show().then(function(){
 				window.history.back();
 			});
 		}

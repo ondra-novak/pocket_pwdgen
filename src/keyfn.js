@@ -122,4 +122,8 @@
 
 	PPG.generatePassword = generate_password;
 	
+	PPG.check_code = function(x) {
+		return CryptoJS.HmacSHA256("check",x).toString().substr(0,4);
+	}
+	
 })();

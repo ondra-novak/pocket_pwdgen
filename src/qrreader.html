@@ -1,0 +1,31 @@
+<template id="qrscanner"><div class="window qrscanner">
+<h1><button data-name="back"> &lt; </button>{{Čtečka QR}}</h1>
+<div class="error_msg_space">
+<div class="error" name="err_notallow">{{Fotoaparát je zakázán. Prosím povolte použití fotoaparátu}}</div>
+<div class="error" name="err_notfound">{{Pro tuto funkci je vyžadována přítomnost fotoaparátu v zařízení. Fotoaparát však nebyl nalezen nebo není správně zapojen či nastaven}}</div>
+<div class="error" name="err_notwork">{{Fotoaparát ve vašem zařízení zřejmě nefunguje}}</div>
+<div class="error" name="err_security">{{Z bezpečnostních důvodů vaše zařízení blokuje použití fotoaparátu. Prosím zajištěte odstranění blokace.}}</div>
+<div class="error" name="err_internal">{{Nastala neznámá chyba}}:<spam name="err_name"></spam></div>
+</div>
+<canvas name="out-canvas" class="hidden_canvas"  width="320" height="240"></canvas>
+
+<div class="wrap">
+<div class="video_space" name="video_info">
+<video name="video_view" autoplay></video>
+<div class="overlay">
+<div class="left upper inner"></div>
+<div class="left upper outer"></div>
+<div class="right upper inner"></div>
+<div class="right upper outer"></div>
+<div class="left bottom inner"></div>
+<div class="left bottom outer"></div>
+<div class="right bottom inner"></div>
+<div class="right bottom outer"></div>
+</div>
+</div>
+</div>
+<div class="button_panel button2">
+<button name="back">&lt;&lt; {{Back}}</button>
+</div>
+
+</hf-popup></template>

@@ -11,3 +11,22 @@ textarea[name=passphrase] {
 	text-align: center;
 	font-size: 1em;
 }
+
+.genkey_done h2 {
+	text-align: center;
+	/* padding-top: 20vh; */
+	/* padding-bottom:  20vh; */
+}
+
+.genkey .checkf {
+	width: 30%;
+	display:initial;
+	margin:0;
+	padding:0;
+}
+
+.genkey .checkf:after{
+	context:"";
+	clear: both;
+}
+.genkey_done svg {width: 50%;display: block;margin: 5vh auto;animation: pulse 1s ease-in-out infinite;}

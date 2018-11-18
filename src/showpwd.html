@@ -1,26 +1,30 @@
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><span data-name="back"> &lt; </span>{{Heslo}}</h1>
+<h1><button data-name="back"> &lt; </button>{{Heslo}}</h1>
 <div class="form">
 <label>{{Doména}}:
 <input type="text" name="site" value=""  readonly="readonly">
 </label>
+<div class="error" data-name="err_notfound">{{Pozor! Selhalo ověření domény. Zkontrolujte, zda jméno neobsahuje překlep}}</div>
 <label>{{Heslo}}:
 <span class="order">{{Pozice}}: <span name="order">0</span></span>
 <input type="text" name="pwd" value=""  readonly="readonly">
 </label>
 </div>
 <div class="options form">
-<div class="button2">
+<div class="button2 panel">
 <button name="prev"><span class="left arrows">&lt;&lt;</span> {{Předchozí<br>heslo}}</button>
 <button name="next"><span class="right arrows">&gt;&gt;</span>{{Další<br>heslo}}</button>
 </div>
-<label>{{Použít jiný klíč}}
+<label name="dkey">{{Použít jiný klíč}}
 <select name="chngkey"><option value="">--{{vyber klíč}}--</option></select>
 </label>
+<div class="button2  panel">
+<button name="restore">{{Obnovit}}</button>
+</div>
 
 </div>
 <div class="button_panel button2">
+<button name="back">&lt;&lt;{{Zpět}}</button>
 <button name="remember">{{Uložit}}</button>
-<button name="restore">{{Obnovit}}</button>
 </div>
 </div></template>

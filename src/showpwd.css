@@ -22,6 +22,10 @@
 	top: 0;
 }
 
+.showpwd .panel {
+	margin-bottom: 1em;
+}
+
 .showpwd button[name=remember] {
 	animation-name: pulse;
 	animation-duration: 2s;
