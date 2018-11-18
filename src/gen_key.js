@@ -45,6 +45,8 @@
 					v.mark("errshort");					
 				} else {
 					v.enableItem("generate",false);
+					v.enableItem("randombtn",false);
+					v.enableItem("passphrase",false);
 					this.prepareSecret(txt,50000,function(x) {
 						if (!v.getRoot().isConnected) throw new Error("canceled");
 						if (x > c) c = x;

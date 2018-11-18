@@ -101,7 +101,9 @@ light-box {
 }
 
 .progress_panel {
-	
+	clear: both;
+	margin-bottom: 1em;
+	/* padding-top: 0.5em; */
 }
 
 .progress {
