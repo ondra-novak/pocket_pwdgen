@@ -49,7 +49,8 @@
 			};
 		});
 		
-		v.setItemValue("recent",ss);		
+		v.setItemValue("recent",ss);
+		v.showItem("empty",ss.length == 0);
 		
 		
 	};

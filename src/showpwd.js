@@ -24,10 +24,17 @@
 		origSiteInfo = PPG.KeyStore.getSite(site);
 		
 		function checkDNS(domain) {
-			return fetch("https://cloudflare-dns.com/dns-query?name="+encodeURIComponent(domain),
-					{"headers":{"accept":"application/dns-json"}})
-					.then(function(x) {return x.json();})
-					.then(function(x) {return x.Status == 0});
+			try {
+				return fetch("https://cloudflare-dns.com/dns-query?name="+encodeURIComponent(domain),
+						{"headers":{"accept":"application/dns-json"}})
+						.then(function(x) {return x.json();})
+						.then(function(x) {return x.Status == 0})
+						.catch(function(){
+							return false;
+						});
+			} catch (e) {
+				return Promise.resolve(false);
+			}
 		}
 		
 		function update(v) {
