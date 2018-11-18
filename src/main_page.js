@@ -18,9 +18,9 @@
 					var d = v.readData();
 					if (d.site.length == 0) {
 						v.mark("errshort");						
+					} else {
+						location.hash = "#site="+encodeURIComponent(d.site);
 					}
-			
-					location.hash = "#site="+encodeURIComponent(d.site);
 				}.bind(this),"showpwd");
 /*		v.setItemEvent("keyman_icon","click",function() {
 					location.hash = "#keys";
