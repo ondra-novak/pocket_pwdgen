@@ -14,10 +14,17 @@
 	"use strict";
 	
 	PPG.main = function() {
+		var svc;
+		if ('serviceWorker' in navigator) {
+			svc = navigator.serviceWorker.register('service_worker.js');
+		} else {
+			svc = Promise.resolve();
+		}
 		Promise.all([
 			TemplateJS.once(document,"styles_loaded"),
-			TemplateJS.delay(1000)]
-		).then(this.start.bind(this));
+			TemplateJS.delay(1000),
+			svc
+		]).then(this.start.bind(this));
 	};
 
 	
@@ -49,8 +56,9 @@
 		
 		window.addEventListener("hashchange", PPG.hash_router.bind(PPG));
 		
-		document.getElementById("intro").hidden=true;	
-		if (PPG.KeyStore.list().length == 0) {
+		document.getElementById("intro").hidden=true;
+		
+		function welcome() {
 			PPG.welcome_page()
 			.then(PPG.add_new_key_dlg.bind(PPG))
 			.then(function(kk){
@@ -59,13 +67,18 @@
 				PPG.main_page();
 			}).catch(function(e) {
 				console.error(e);
-				PPG.start();
+				welcome();
 			}.bind(PPG));
+			
+		}
+		
+		if (PPG.KeyStore.list().length == 0) {
+			welcome();
 		} else {
 			if (location.hash.length) PPG.hash_router();
 			else PPG.main_page();
-		};
-	}
+		}
+	};
 	
 	
 })();

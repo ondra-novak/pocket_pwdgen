@@ -396,8 +396,6 @@ var TemplateJS = function(){
 					case '$': return Array.from(this.root.querySelectorAll(selector.substr(1)));
 					default: return selector in this.byName?this.byName[selector]:[];
 				}
-			} else {
-				return [this.root];
 			}
 		} else if (Array.isArray(selector)) {
 			if (selector.length==1) {
@@ -11185,10 +11183,17 @@ PPG.domain_sfx={"ac":false,
 	"use strict";
 	
 	PPG.main = function() {
+		var svc;
+		if ('serviceWorker' in navigator) {
+			svc = navigator.serviceWorker.register('service_worker.js');
+		} else {
+			svc = Promise.resolve();
+		}
 		Promise.all([
 			TemplateJS.once(document,"styles_loaded"),
-			TemplateJS.delay(1000)]
-		).then(this.start.bind(this));
+			TemplateJS.delay(1000),
+			svc
+		]).then(this.start.bind(this));
 	};
 
 	
@@ -11220,8 +11225,9 @@ PPG.domain_sfx={"ac":false,
 		
 		window.addEventListener("hashchange", PPG.hash_router.bind(PPG));
 		
-		document.getElementById("intro").hidden=true;	
-		if (PPG.KeyStore.list().length == 0) {
+		document.getElementById("intro").hidden=true;
+		
+		function welcome() {
 			PPG.welcome_page()
 			.then(PPG.add_new_key_dlg.bind(PPG))
 			.then(function(kk){
@@ -11230,13 +11236,18 @@ PPG.domain_sfx={"ac":false,
 				PPG.main_page();
 			}).catch(function(e) {
 				console.error(e);
-				PPG.start();
+				welcome();
 			}.bind(PPG));
+			
+		}
+		
+		if (PPG.KeyStore.list().length == 0) {
+			welcome();
 		} else {
 			if (location.hash.length) PPG.hash_router();
 			else PPG.main_page();
-		};
-	}
+		}
+	};
 	
 	
 })();
