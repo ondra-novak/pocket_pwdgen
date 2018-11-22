@@ -396,6 +396,8 @@ var TemplateJS = function(){
 					case '$': return Array.from(this.root.querySelectorAll(selector.substr(1)));
 					default: return selector in this.byName?this.byName[selector]:[];
 				}
+			} else {
+				return [this.root];
 			}
 		} else if (Array.isArray(selector)) {
 			if (selector.length==1) {
