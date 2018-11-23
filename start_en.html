@@ -94,8 +94,7 @@
 <textarea name="passphrase" rows="3"></textarea>
 </label>
 <div class="error" data-name="errshort">Fráze je příliš krátká. Zkuste zadat aspoň 16 písmen</div>
-<button class="right" name="randombtn">Nová fráze</button>
-<label><span>Kontrolní kód: </span>
+<label><button class="right" name="randombtn">Nová fráze</button><span>Kontrolní kód: </span>
 <input name="checkf" class="checkf" readonly="readonly">
 </label>
 <div class="progress_panel">
@@ -179,13 +178,21 @@
 </div></template>
 
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button>Heslo</h1>
+<h1><button data-name="back"> &lt; </button><button class="trash_icon" name="trash">T</button>Heslo</h1>
 <div class="form">
 <label>Doména:
 <input type="text" name="site" value=""  readonly="readonly">
 </label>
 <div class="error" data-name="err_notfound">Pozor! Selhalo ověření domény. Zkontrolujte, zda jméno neobsahuje překlep</div>
-<label>Heslo:
+<label><select name="type" class="typesell">
+<option value="pwd">Silné heslo</option>
+<option value="pin4">PIN 4 číslice</option>
+<option value="pin8">PIN 8 číslic</option>
+<option value="pin_trezor1">PIN Trezor One</option>
+<option value="alnum_12">12 písmen a číslic</option>
+<option value="phrase_short">Krátká fráze</option>
+<option value="phrase_long">Dlouhá fráze</option>
+</select>
 <span class="order">Pozice: <span name="order">0</span></span>
 <input type="text" name="pwd" value=""  readonly="readonly">
 </label>
@@ -207,6 +214,9 @@
 <button name="back">&lt;&lt;Zpět</button>
 <button name="remember">Uložit</button>
 </div>
+</div></template>
+<template id="longclicknote"><div class="longclicknote">
+Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sekundu
 </div></template>
 
 <template id="mainscreen"><div class="window main"  data-open-anim="anim_open"  data-close-anim="anim_close">
@@ -233,12 +243,10 @@
 
 <template id="settings"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
 <h1><button data-name="back"> &lt; </button>Nastavení</h1>
-<div class="form">
 <div class="panel">
 <button name="keys">Správa klíčů</button>
 <button name="lang">Změna jazyka</button>
 <button name="reset">Vše smazat</button>
-</div>
 </div>
 <div class="button_panel button2">
 <button name="back">&lt;&lt; Zpět</button>

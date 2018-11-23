@@ -1255,12 +1255,16 @@ PPG.KeyStore = {
 			empty: function() {
 				return this.list().length == 0;
 			},
-			setSite: function(site, key, index) {
+			setSite: function(site, key, index, type) {
 				localStorage["site_"+site] = JSON.stringify({
 					"key":key,
 					"index":index,
+					"type":type,
 					"time":Date.now()
 				});				
+			},
+			unsetSite:function(site) {
+				delete localStorage["site_"+site];
 			},
 			accessSite: function(site) {
 				var s = getSite(site);
@@ -1282,8 +1286,158 @@ PPG.KeyStore = {
 				return Object.keys(localStorage)
 					.filter(function(x) {return x.startsWith("site_")})
 					.map(function(x) {return x.substr(5);})
+			},
+			reset: function() {
+				this.list().forEach(function(x){
+					this.unset(x);
+				}, this);
+				this.listSites().forEach(function(x){
+					this.unsetSite(x);
+				},this);
+				delete localStorage["primary_key"];
 			}
 	};
+(function(){
+	"use strict";
+	
+	PPG.KeyStoreIDB = {
+		init: function() {
+			return new Promise(function(ok,error) {
+	        var request = window.indexedDB.open("storage", 2);
+	         
+	         request.onerror = error;	            	         
+	         
+	         request.onsuccess = function(event) {	            
+  	            this.db = request.result;
+  	            ok();
+	         }.bind(this);
+	         
+	         request.onupgradeneeded = function(event) {
+	            var db = event.target.result;
+	            var ver = event.oldVersion;
+	            if (ver < 1) {
+	            	db.createObjectStore("keys", {keyPath: "name"});
+		            db.createObjectStore("sites", {keyPath: "name"});
+	            	db.createObjectStore("config", {keyPath: "id"});
+	            }
+	         }
+			}.bind(this));
+		},
+		
+		put_data: function(table, data) {
+			return new Promise(function(ok, error) {
+				 var request = this.db.transaction([table], "readwrite")
+				 .objectStore(table)
+				 .put(data);
+				 request.onsuccess = ok;
+				 request.onerror=error;
+				}.bind(this));			
+		},
+		
+		get_data: function(table, key) {
+			return new Promise(function(ok, error) {
+				 var request = this.db.transaction([table])
+				 .objectStore(table)
+				 .get(key);
+				 request.onsuccess = function(evt) {
+					 ok(request.result); 					 
+				 }
+				 request.onerror=error;
+			}.bind(this));			
+		},
+		list_data: function(table) {
+			return new Promise(function(ok, error) {
+				var objectStore = this.db.transaction([table]).objectStore(table);
+				var result = [];
+				var c = objectStore.openCursor(); 
+				c.onsuccess = function(event) {
+					  var cursor = event.target.result;
+					  if (cursor) {
+						  result.push(cursor.value);
+						  cursor.continue();
+					  }
+					  else {
+					      ok(result);
+					  }
+				};
+				c.onerror = error;
+			}.bind(this));
+		},
+		delete_data: function(table, key) {
+			return new Promise(function(ok, error) {
+				 var request = this.db.transaction([table], "readwrite")
+				 .objectStore(table)
+				 .delete(key);
+				 request.onsuccess = ok;
+				 request.onerror=error;
+				}.bind(this));						
+		},
+		set: function(key, name) {
+			return this.put_data("keys",{name:name,key:key});
+		},
+		get: function(name) {
+			return this.get_data("keys",name).then(function(x){return x.key;});		
+		},
+		setPrimary: function(v) {
+			return this.put_data("config",{id:"active",value:v});
+		},
+		getPrimary: function(v) {
+			return this.get_data("config","active").then(function(x){return x.value;});
+		},
+		unset:function(name) {
+			return this.delete_data("keys",name);
+		},
+		list: function() {
+			return this.list_data("keys").then(function(x){
+				return x.map(function(z) {
+					return z.name;
+				});
+			});
+		},
+		empty: function() {
+			return this.list().then(function(x){return x.length == 0});
+		},
+		setSite: function(site, key, index, type) {
+			return this.put_data("sites",{
+				name:site,
+				key:key,
+				index:index,
+				type:type,
+				time:Date.now()
+			});
+		},
+		unsetSite:function(site) {
+			return this.delete_data("sites",site);
+		},
+		accessSite: function(site) {
+			return this.getSite(site).then(function(x) {
+				this.setSite(x.name, x.key, x.index);
+			}.bind(this));			
+		},
+		getSite: function(site) {
+			return this.get_data("sites", site).then(function(res) {
+				if (!res) {
+					return this.getPrimary().then(function(p){
+						return {
+							name:site,
+							key:p,
+							index:0
+						};
+					});
+				} else {
+					return res;
+				}
+			}.bind(this));
+		},
+		listSites: function() {
+			return this.list_data("sites");
+		},
+		reset: function() {
+			indexedDB.deleteDatabase["storage"];
+		}
+	
+	}
+})();
 
 (function(){
 	"use strict";
@@ -1725,6 +1879,52 @@ PPG.default_config = {
 	}
 
 	PPG.generatePassword = generate_password;
+
+	function generatePasswordFromCharset(charset, rnd, cnt) {
+		if (cnt > charset.length) cnt = charset.length;
+		var res = [];
+		for (var i = 0; i < cnt; i++) {
+			var r = rnd.random(0,charset.length);
+			res.push(charset[r]);
+			charset.splice(r,1);
+		}
+		return res.join("");
+		
+	}
+	
+	PPG.generatePin = function(rnd, cnt, trezor1) {
+		var numbers = ['0','1','2','3','4','5','6','7','8','9'];
+		if (trezor1) numbers.splice(0,1);
+		return generatePasswordFromCharset(numbers, rnd, cnt);
+	}
+	
+	PPG.generatePwdAlNum = function(rnd, cnt) {
+		var n = [];
+		for (i = 0; i < 9; i++) n.push(""+i);
+		for (i = 0; i < 26; i++) {
+			n.push(String.fromCharCode(i+65));
+			n.push(String.fromCharCode(i+97));
+		}
+		return generatePasswordFromCharset(n, rnd, cnt);
+	}
+
+	PPG.generatePhrase = function(rnd, chunks) {
+	
+		function get_char(charset) {
+			return charset.charAt(rnd.random(0,charset.length));
+		}
+		
+		var n = [];
+		for (var i = 0; i < chunks; i++) {
+			n.push(" ");
+			for (var j = 0; j < 3; j++) {
+				n.push(get_char(charset1))
+				n.push(get_char(charset2))
+			}
+		}
+		return n.slice(1).join("");
+	}
+
 	
 	PPG.check_code = function(x) {
 		return CryptoJS.HmacSHA256("check",x).toString().substr(0,4);
@@ -2132,51 +2332,55 @@ PPG.wordlist = [ "abandon", "ability", "able", "about", "above", "absent",
 			
 			var v = this.layout.load("keylist").v;
 			function fill() {
-				var kk = this.KeyStore.list();
-				var prim = this.KeyStore.getPrimary();
-				var data = kk.map(function(x) {
-					return {
-						"prim":{
-							"value": x == prim,
-							"!change":function() {
-								this.KeyStore.setPrimary(x);
-								fill.call(this);
-							}.bind(this)
-						},
-						"name":x,
-						"del":{
-							".hidden": x==prim,
-							"!click":function() {
-								var dlg = TemplateJS.View.fromTemplate("delconfirm");
-								dlg.openModal();
-								dlg.setItemValue("key",x);
-								dlg.setDefaultAction(function(){
-									this.KeyStore.unset(x);
-									dlg.close();
-									fill.call(this);
-								}.bind(this),"yes");
-								dlg.setCancelAction(function(){
-									dlg.close();									
-								}.bind(this),"no");
-							}.bind(this)
-						}						
-					};
-				}.bind(this));
-				v.setItemValue("rows",data);
-				v.setItemValue("name",kk[0]);
-				v.setData({
-					onekey:{".hidden":kk.length != 1},
-					tbl:{".hidden":kk.length == 1},
-				});
-				
+				return Promise.all([this.KeyStoreIDB.list(),this.KeyStoreIDB.getPrimary()])
+				.then(function(rr) {
+					var kk = rr[0];
+					var prim = rr[1];				
+					var data = kk.map(function(x) {
+						return {
+							"prim":{
+								"value": x == prim,
+								"!change":function() {
+									this.KeyStoreIDB.setPrimary(x).then(fill.bind(this));
+								}.bind(this)
+							},
+							"name":x,
+							"del":{
+								".hidden": x==prim,
+								"!click":function() {
+									var dlg = TemplateJS.View.fromTemplate("delconfirm");
+									dlg.openModal();
+									dlg.setItemValue("key",x);
+									dlg.setDefaultAction(function(){
+										dlg.close();
+										this.KeyStoreIDB.unset(x).then(fill.bind(this));
+									}.bind(this),"yes");
+									dlg.setCancelAction(function(){
+										dlg.close();									
+									}.bind(this),"no");
+								}.bind(this)
+							}						
+						};
+					}.bind(this));
+					v.setItemValue("rows",data);
+					v.setItemValue("name",kk[0]);
+					v.setData({
+						onekey:{".hidden":kk.length != 1},
+						tbl:{".hidden":kk.length == 1},
+					});
+				}.bind(this));				
 			}
 			fill.call(this);
 			v.setItemEvent("back", "click", ok);			
 			v.setItemEvent("plus", "click", function(){
 				this.add_new_key_dlg().then(function(kk){					
-					this.KeyStore.set(kk.key, kk.name);
-					if (kk.setprimary) this.KeyStore.setPrimary(kk.name);
-					ok(key_list.call(this));
+					this.KeyStoreIDB.set(kk.key, kk.name)
+					.then(function() {
+						if (kk.setprimary) 
+							return this.KeyStoreIDB.setPrimary(kk.name);
+					}.bind(this)).then(function() {
+						ok(key_list.call(this));
+					}.bind(this));					
 				}.bind(this),function(){
 					ok(key_list.call(this));
 				}.bind(this));
@@ -10844,83 +11048,131 @@ PPG.domain_sfx={"ac":false,
 	PPG.showpwd = function(site) {
 		var site = PPG.normalize_domain(site)
 		
-		var siteInfo = PPG.KeyStore.getSite(site);
-		var origSiteInfo;
-		var newsite = false;
-		
-		if (siteInfo.time) {
-			PPG.KeyStore.setSite(site,siteInfo.key, siteInfo.index);
-		} else {
-			newsite = true;
-		}
-		origSiteInfo = PPG.KeyStore.getSite(site);
-		
-		function checkDNS(domain) {
-			try {
-				return fetch("https://cloudflare-dns.com/dns-query?name="+encodeURIComponent(domain),
-						{"headers":{"accept":"application/dns-json"}})
-						.then(function(x) {return x.json();})
-						.then(function(x) {return x.Status == 0})
-						.catch(function(){
-							return false;
-						});
-			} catch (e) {
-				return Promise.resolve(false);
+		return PPG.KeyStoreIDB.getSite(site)
+			.then(function(siteInfo) {
+			var origSiteInfo;
+			var newsite = false;
+			
+			if (siteInfo.time) {
+				PPG.KeyStoreIDB.setSite(site,siteInfo.key, siteInfo.index);
+			} else {
+				newsite = true;
 			}
-		}
-		
-		function update(v) {
-			var secret = PPG.KeyStore.get(siteInfo.key);
-			var krnd = PPG.prepareKey(secret, site, siteInfo.index);
-			v.setItemValue("chngkey", siteInfo.key);
-			v.setItemValue("pwd",PPG.generatePassword(krnd));						
-			v.setItemValue("order", siteInfo.index+1);
-			v.enableItem("prev", siteInfo.index > 0);
-			var restore = siteInfo.key != origSiteInfo.key || siteInfo.index != origSiteInfo.index;
-			v.enableItem("remember", restore || newsite);
-			v.showItem("restore", restore);
-		}
-		
-				
-		return new Promise(function(ok) {
-			var v = this.layout.load("showpwd").v;
+			origSiteInfo = JSON.parse(JSON.stringify(siteInfo));
+			
+			function checkDNS(domain) {
+				try {
+					return fetch("https://cloudflare-dns.com/dns-query?name="+encodeURIComponent(domain),
+							{"headers":{"accept":"application/dns-json"}})
+							.then(function(x) {return x.json();})
+							.then(function(x) {return x.Status == 0})
+							.catch(function(){
+								return false;
+							});
+				} catch (e) {
+					return Promise.resolve(false);
+				}
+			}
+			
+			function update(v) {
+				return PPG.KeyStoreIDB.get(siteInfo.key).then(function(secret) {
+					var krnd = PPG.prepareKey(secret, site, siteInfo.index);
+					v.setItemValue("chngkey", siteInfo.key);
+					var pwd;
+					switch (siteInfo.type) {
+						case "pin4": pwd = PPG.generatePin(krnd, 4, false);break;
+						case "pin8": pwd = PPG.generatePin(krnd, 8, false);break;
+						case "pin_trezor1": pwd = PPG.generatePin(krnd, 8, true);break;
+						case "alnum_12": pwd = PPG.generatePwdAlNum(krnd, 12);break;
+						case "phrase_short": pwd = PPG.generatePhrase(krnd, 2);break;
+						case "phrase_long": pwd = PPG.generatePhrase(krnd, 5);break;
+						default: pwd = PPG.generatePassword(krnd);break;
+					}
+					v.setItemValue("pwd",pwd);						
+					v.setItemValue("order", siteInfo.index+1);
+					v.setItemValue("type", siteInfo.type);
+					v.enableItem("prev", siteInfo.index > 0);
+					var restore = siteInfo.key != origSiteInfo.key || siteInfo.index != origSiteInfo.index || siteInfo.type != origSiteInfo.type;
+					v.enableItem("remember", restore || newsite);
+					v.showItem("restore", restore);					
+				});
+			}
+			
+			
+					
+			return new Promise(function(ok) {
+				var v = this.layout.load("showpwd").v;
 
-			checkDNS(site).then(function(x) {
-				if (!x) v.mark("err_notfound");
-			})
-			
-			var klist = PPG.KeyStore.list();
-			v.showItem("dkey",klist.length>1);
-			v.setItemValue("chngkey", klist);
-			update(v);
-			
-			v.setItemValue("site",site);
-			v.setDefaultAction(ok,"back");
-			v.setItemEvent("next","click",function(){
-				siteInfo.index++;
-				update(v);
-			});
-			v.setItemEvent("prev","click",function(){
-				siteInfo.index--;
-				update(v);
-			});
-			v.setItemEvent("restore","click",function(){
-				siteInfo = PPG.KeyStore.getSite(site);
-				update(v);
-			});
-			v.setItemEvent("remember","click",function(){
-				PPG.KeyStore.setSite(site,siteInfo.key,siteInfo.index);
-				origSiteInfo = PPG.KeyStore.getSite(site);
-				newsite = false;
-				update(v);
-			});
-			v.setItemEvent("chngkey","change",function(e){
-				siteInfo.key = e.target.value;
-				siteInfo.index = 0;
-				update(v);
-			});
-		}.bind(this));			
-			
+				function handle_trash(eventName) {
+					var nullit = false;
+					var tm = setTimeout(function() {
+						PPG.KeyStoreIDB.unsetSite(site).then(ok);
+						nullit = true;
+					},1000);
+					TemplateJS.once(document.body,eventName).then(function() {
+						if (nullit) return;
+						clearTimeout(tm);
+						var vv = TemplateJS.View.fromTemplate("longclicknote");
+						vv.open();
+						TemplateJS.delay(3000).then(vv.close.bind(vv));
+					});
+				}
+
+				
+				checkDNS(site).then(function(x) {
+					if (!x) v.mark("err_notfound");
+				})
+				
+				return PPG.KeyStoreIDB.list().then(function(klist) {
+					v.showItem("dkey",klist.length>1);
+					v.setItemValue("chngkey", klist);
+					update(v);
+					
+					v.setItemValue("site",site);
+					v.setDefaultAction(ok,"back");
+					v.setItemEvent("next","click",function(){
+						siteInfo.index++;
+						update(v);
+					});
+					v.setItemEvent("prev","click",function(){
+						siteInfo.index--;
+						update(v);
+					});
+					v.setItemEvent("restore","click",function(){
+						PPG.KeyStoreIDB.getSite(site).then(function(s) {
+							siteInfo = s;
+							update(v);
+						});							
+					});
+					v.setItemEvent("remember","click",function(){
+						PPG.KeyStoreIDB.setSite(site,siteInfo.key,siteInfo.index, siteInfo.type)
+						.then(PPG.KeyStoreIDB.getSite.bind(PPG.KeyStoreIDB,site))
+						.then(function(z) {
+							origSiteInfo = z;
+							newsite = false;
+							update(v);
+						});						
+					});
+					v.setItemEvent("trash", "touchstart", function(e) {
+						e.preventDefault();
+						handle_trash.call(this, "touchend");
+					});
+					v.setItemEvent("trash", "mousedown", function(e) {
+						e.preventDefault();
+						handle_trash.call(this, "mouseup");
+					});
+					v.setItemEvent("chngkey","change",function(e){
+						siteInfo.key = e.target.value;
+						siteInfo.index = 0;
+						update(v);
+					});
+					v.setItemEvent("type","change",function(e){
+						siteInfo.type = e.target.value;
+						update(v);
+					});
+				});
+			}.bind(this));			
+		}.bind(this));
 	};
 	
 	
@@ -10956,23 +11208,23 @@ PPG.domain_sfx={"ac":false,
 			});
 			qrr.show().then(PPG.main_page.bind(PPG));				
 		});
-		var ss =PPG.KeyStore.listSites().sort(function(a,b){
-			var ta = PPG.KeyStore.getSite(a);
-			var tb = PPG.KeyStore.getSite(b);
-			return tb.time - ta.time;
-		}).slice(0,20).map(function(x){
-			return {
-				"":{
-					"value":x,
-					"!click":function() {
-						location.hash = "#site="+encodeURIComponent(x);
+		PPG.KeyStoreIDB.listSites().then(function(ss) {
+			ss = ss.sort(function(a,b){
+				return b.time - a.time;
+			}).slice(0,20).map(function(x){
+				return {
+					"":{
+						"value":x.name,
+						"!click":function() {
+							location.hash = "#site="+encodeURIComponent(x.name);
+						}
 					}
-				}
-			};
-		});
+				};
+			});
 		
-		v.setItemValue("recent",ss);
-		v.showItem("empty",ss.length == 0);
+			v.setItemValue("recent",ss);
+			v.showItem("empty",ss.length == 0);
+		});
 		
 		
 	};
@@ -11226,29 +11478,36 @@ PPG.domain_sfx={"ac":false,
 	PPG.start = function() {
 		
 		window.addEventListener("hashchange", PPG.hash_router.bind(PPG));
-		
-		document.getElementById("intro").hidden=true;
-		
-		function welcome() {
-			PPG.welcome_page()
-			.then(PPG.add_new_key_dlg.bind(PPG))
-			.then(function(kk){
-				PPG.KeyStore.set(kk.key, kk.name);
-				PPG.KeyStore.setPrimary(kk.name);
-				PPG.main_page();
-			}).catch(function(e) {
-				console.error(e);
-				welcome();
-			}.bind(PPG));
+		PPG.KeyStoreIDB.init().then(function() {
 			
-		}
-		
-		if (PPG.KeyStore.list().length == 0) {
-			welcome();
-		} else {
-			if (location.hash.length) PPG.hash_router();
-			else PPG.main_page();
-		}
+			document.getElementById("intro").hidden=true;
+			
+			function welcome() {
+				PPG.welcome_page()
+				.then(PPG.add_new_key_dlg.bind(PPG))
+				.then(function(kk){
+					return Promise.all([
+						PPG.KeyStoreIDB.set(kk.key, kk.name),
+						PPG.KeyStoreIDB.setPrimary(kk.name)
+						]);
+				})
+				.then(PPG.main_page.bind(PPG))
+				.catch(function(e) {
+					console.error(e);
+					welcome();
+				}.bind(PPG));
+				
+			}
+			PPG.KeyStoreIDB.empty().then(function(r) {
+			
+				if (r) {
+					welcome();
+				} else {
+					if (location.hash.length) PPG.hash_router();
+					else PPG.main_page();
+				}
+			});
+		});
 	};
 	
 	

@@ -34,23 +34,23 @@
 			});
 			qrr.show().then(PPG.main_page.bind(PPG));				
 		});
-		var ss =PPG.KeyStore.listSites().sort(function(a,b){
-			var ta = PPG.KeyStore.getSite(a);
-			var tb = PPG.KeyStore.getSite(b);
-			return tb.time - ta.time;
-		}).slice(0,20).map(function(x){
-			return {
-				"":{
-					"value":x,
-					"!click":function() {
-						location.hash = "#site="+encodeURIComponent(x);
+		PPG.KeyStoreIDB.listSites().then(function(ss) {
+			ss = ss.sort(function(a,b){
+				return b.time - a.time;
+			}).slice(0,20).map(function(x){
+				return {
+					"":{
+						"value":x.name,
+						"!click":function() {
+							location.hash = "#site="+encodeURIComponent(x.name);
+						}
 					}
-				}
-			};
-		});
+				};
+			});
 		
-		v.setItemValue("recent",ss);
-		v.showItem("empty",ss.length == 0);
+			v.setItemValue("recent",ss);
+			v.showItem("empty",ss.length == 0);
+		});
 		
 		
 	};
