@@ -8,6 +8,7 @@ var static_files = [
 	"files/code.js",
 	"files/style.css",
 	"manifest.json",
+	"index.html"
 	];
 	
 self.addEventListener('install', function(evt) {

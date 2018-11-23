@@ -1,4 +1,4 @@
-// timestamp: 1542908132
+// timestamp: 1542922787
 
 var CACHE = 'cache1';
 var static_files = [
@@ -8,6 +8,7 @@ var static_files = [
 	"files/code.js",
 	"files/style.css",
 	"manifest.json",
+	"index.html"
 	];
 	
 self.addEventListener('install', function(evt) {
