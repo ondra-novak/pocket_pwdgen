@@ -55,29 +55,36 @@
 	PPG.start = function() {
 		
 		window.addEventListener("hashchange", PPG.hash_router.bind(PPG));
-		
-		document.getElementById("intro").hidden=true;
-		
-		function welcome() {
-			PPG.welcome_page()
-			.then(PPG.add_new_key_dlg.bind(PPG))
-			.then(function(kk){
-				PPG.KeyStore.set(kk.key, kk.name);
-				PPG.KeyStore.setPrimary(kk.name);
-				PPG.main_page();
-			}).catch(function(e) {
-				console.error(e);
-				welcome();
-			}.bind(PPG));
+		PPG.KeyStoreIDB.init().then(function() {
 			
-		}
-		
-		if (PPG.KeyStore.list().length == 0) {
-			welcome();
-		} else {
-			if (location.hash.length) PPG.hash_router();
-			else PPG.main_page();
-		}
+			document.getElementById("intro").hidden=true;
+			
+			function welcome() {
+				PPG.welcome_page()
+				.then(PPG.add_new_key_dlg.bind(PPG))
+				.then(function(kk){
+					return Promise.all([
+						PPG.KeyStoreIDB.set(kk.key, kk.name),
+						PPG.KeyStoreIDB.setPrimary(kk.name)
+						]);
+				})
+				.then(PPG.main_page.bind(PPG))
+				.catch(function(e) {
+					console.error(e);
+					welcome();
+				}.bind(PPG));
+				
+			}
+			PPG.KeyStoreIDB.empty().then(function(r) {
+			
+				if (r) {
+					welcome();
+				} else {
+					if (location.hash.length) PPG.hash_router();
+					else PPG.main_page();
+				}
+			});
+		});
 	};
 	
 	

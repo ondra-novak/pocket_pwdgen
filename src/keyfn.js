@@ -121,6 +121,52 @@
 	}
 
 	PPG.generatePassword = generate_password;
+
+	function generatePasswordFromCharset(charset, rnd, cnt) {
+		if (cnt > charset.length) cnt = charset.length;
+		var res = [];
+		for (var i = 0; i < cnt; i++) {
+			var r = rnd.random(0,charset.length);
+			res.push(charset[r]);
+			charset.splice(r,1);
+		}
+		return res.join("");
+		
+	}
+	
+	PPG.generatePin = function(rnd, cnt, trezor1) {
+		var numbers = ['0','1','2','3','4','5','6','7','8','9'];
+		if (trezor1) numbers.splice(0,1);
+		return generatePasswordFromCharset(numbers, rnd, cnt);
+	}
+	
+	PPG.generatePwdAlNum = function(rnd, cnt) {
+		var n = [];
+		for (i = 0; i < 9; i++) n.push(""+i);
+		for (i = 0; i < 26; i++) {
+			n.push(String.fromCharCode(i+65));
+			n.push(String.fromCharCode(i+97));
+		}
+		return generatePasswordFromCharset(n, rnd, cnt);
+	}
+
+	PPG.generatePhrase = function(rnd, chunks) {
+	
+		function get_char(charset) {
+			return charset.charAt(rnd.random(0,charset.length));
+		}
+		
+		var n = [];
+		for (var i = 0; i < chunks; i++) {
+			n.push(" ");
+			for (var j = 0; j < 3; j++) {
+				n.push(get_char(charset1))
+				n.push(get_char(charset2))
+			}
+		}
+		return n.slice(1).join("");
+	}
+
 	
 	PPG.check_code = function(x) {
 		return CryptoJS.HmacSHA256("check",x).toString().substr(0,4);

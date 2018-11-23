@@ -53,3 +53,27 @@
 		transform: scale(1,1);
 	}
 }
+
+.showpwd .trash_icon {
+	float:right;
+}
+
+.showpwd .typesell{
+	display:  inline-block;
+	width: auto;
+	border:  0;
+	background: none;
+	margin: -1em 0 -1em 0;
+	/* padding: 0; */
+}
+
+.longclicknote {
+	position:absolute;
+	left:10vmin;
+	right:10vmin;
+	top: 12vmax;
+	border: 1px solid;
+	padding: 5px;
+	background-color: yellow;
+	box-shadow: 1vh 1vh 2vh rgb(0,0,0,0.5);
+}
