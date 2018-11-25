@@ -173,8 +173,8 @@
 </template>
 
 <template id="delconfirm"><div class="modal confirm">
-<p>Do you really want to erase the key: <span name="key"></span></p>
-<p><button name="yes">Yes</button><button name="no">No</button>
+<p>Opravdu si přejete smazat klíč?: <span name="key"></span></p>
+<p><button name="yes">Ano</button><button name="no">Ne</button>
 </div></template>
 
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
@@ -187,6 +187,7 @@
 <label><select name="type" class="typesell">
 <option value="pwd">Silné heslo</option>
 <option value="pin4">PIN 4 číslice</option>
+<option value="pin6">PIN 6 číslic</option>
 <option value="pin8">PIN 8 číslic</option>
 <option value="pin_trezor1">PIN Trezor One</option>
 <option value="alnum_12">12 písmen a číslic</option>
@@ -206,7 +207,7 @@
 <select name="chngkey"><option value="">--vyber klíč--</option></select>
 </label>
 <div class="button2  panel">
-<button name="restore">Obnovit</button>
+<button name="restore">Vrátit</button>
 </div>
 
 </div>
@@ -292,7 +293,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Back</button>
+<button name="back">&lt;&lt; Zpět</button>
 </div>
 
 </div></template>

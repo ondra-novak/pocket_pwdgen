@@ -72,7 +72,7 @@ PPG.KeyStore = {
 	PPG.KeyStoreIDB = {
 		init: function() {
 			return new Promise(function(ok,error) {
-	        var request = window.indexedDB.open("storage", 2);
+	        var request = window.indexedDB.open("ppg_storage", 1);
 	         
 	         request.onerror = error;	            	         
 	         
@@ -202,7 +202,7 @@ PPG.KeyStore = {
 			return this.list_data("sites");
 		},
 		reset: function() {
-			indexedDB.deleteDatabase["storage"];
+			indexedDB.deleteDatabase["ppg_storage"];
 		}
 	
 	}

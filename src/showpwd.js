@@ -18,7 +18,7 @@
 			var newsite = false;
 			
 			if (siteInfo.time) {
-				PPG.KeyStoreIDB.setSite(site,siteInfo.key, siteInfo.index);
+				PPG.KeyStoreIDB.setSite(site,siteInfo.key, siteInfo.index, siteInfo.type);
 			} else {
 				newsite = true;
 			}
@@ -45,11 +45,12 @@
 					var pwd;
 					switch (siteInfo.type) {
 						case "pin4": pwd = PPG.generatePin(krnd, 4, false);break;
+						case "pin6": pwd = PPG.generatePin(krnd, 6, false);break;
 						case "pin8": pwd = PPG.generatePin(krnd, 8, false);break;
-						case "pin_trezor1": pwd = PPG.generatePin(krnd, 8, true);break;
+						case "pin_trezor1": pwd = PPG.generatePin(krnd, 6, true);break;
 						case "alnum_12": pwd = PPG.generatePwdAlNum(krnd, 12);break;
 						case "phrase_short": pwd = PPG.generatePhrase(krnd, 2);break;
-						case "phrase_long": pwd = PPG.generatePhrase(krnd, 5);break;
+						case "phrase_long": pwd = PPG.generatePhrase(krnd, 4);break;
 						default: pwd = PPG.generatePassword(krnd);break;
 					}
 					v.setItemValue("pwd",pwd);						

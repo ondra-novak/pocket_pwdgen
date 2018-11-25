@@ -1,3 +1,4 @@
+// timestamp: 1543185955
 
 var CACHE = 'cache1';
 var static_files = [

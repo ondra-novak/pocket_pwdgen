@@ -1303,7 +1303,7 @@ PPG.KeyStore = {
 	PPG.KeyStoreIDB = {
 		init: function() {
 			return new Promise(function(ok,error) {
-	        var request = window.indexedDB.open("storage", 2);
+	        var request = window.indexedDB.open("ppg_storage", 1);
 	         
 	         request.onerror = error;	            	         
 	         
@@ -1433,7 +1433,7 @@ PPG.KeyStore = {
 			return this.list_data("sites");
 		},
 		reset: function() {
-			indexedDB.deleteDatabase["storage"];
+			indexedDB.deleteDatabase["ppg_storage"];
 		}
 	
 	}
@@ -1893,8 +1893,8 @@ PPG.default_config = {
 	}
 	
 	PPG.generatePin = function(rnd, cnt, trezor1) {
-		var numbers = ['0','1','2','3','4','5','6','7','8','9'];
-		if (trezor1) numbers.splice(0,1);
+		var numbers = ['0','0','1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9'];
+		if (trezor1) numbers.splice(0,2);
 		return generatePasswordFromCharset(numbers, rnd, cnt);
 	}
 	
@@ -1902,8 +1902,20 @@ PPG.default_config = {
 		var n = [];
 		for (i = 0; i < 9; i++) n.push(""+i);
 		for (i = 0; i < 26; i++) {
-			n.push(String.fromCharCode(i+65));
-			n.push(String.fromCharCode(i+97));
+			var a;
+			a = String.fromCharCode(i+65);
+			//O => 0
+			//B => 8
+			//G => 6
+			//S => 5
+			//Z => 2
+			if (a != 'O' && a != 'B' && a != 'G' && a!='S' && a!='Z') n.push(a);
+			a = String.fromCharCode(i+97);
+			//l => 1
+			//b => 6
+			//g => 9
+			if (a != 'l' && a != 'b' && a != 'g') n.push(a);
+			
 		}
 		return generatePasswordFromCharset(n, rnd, cnt);
 	}
@@ -11009,6 +11021,7 @@ PPG.domain_sfx={"ac":false,
 	
 	function normalize_domain(text) {
 		text = text.trim();
+		if (text.startsWith('/')) return text.substr(1);
 		if (text.startsWith("http://")) text = text.substr(7);
 		else if (text.startsWith("https://")) text = text.substr(8);
 		
@@ -11054,7 +11067,7 @@ PPG.domain_sfx={"ac":false,
 			var newsite = false;
 			
 			if (siteInfo.time) {
-				PPG.KeyStoreIDB.setSite(site,siteInfo.key, siteInfo.index);
+				PPG.KeyStoreIDB.setSite(site,siteInfo.key, siteInfo.index, siteInfo.type);
 			} else {
 				newsite = true;
 			}
@@ -11081,11 +11094,12 @@ PPG.domain_sfx={"ac":false,
 					var pwd;
 					switch (siteInfo.type) {
 						case "pin4": pwd = PPG.generatePin(krnd, 4, false);break;
+						case "pin6": pwd = PPG.generatePin(krnd, 6, false);break;
 						case "pin8": pwd = PPG.generatePin(krnd, 8, false);break;
-						case "pin_trezor1": pwd = PPG.generatePin(krnd, 8, true);break;
+						case "pin_trezor1": pwd = PPG.generatePin(krnd, 6, true);break;
 						case "alnum_12": pwd = PPG.generatePwdAlNum(krnd, 12);break;
 						case "phrase_short": pwd = PPG.generatePhrase(krnd, 2);break;
-						case "phrase_long": pwd = PPG.generatePhrase(krnd, 5);break;
+						case "phrase_long": pwd = PPG.generatePhrase(krnd, 4);break;
 						default: pwd = PPG.generatePassword(krnd);break;
 					}
 					v.setItemValue("pwd",pwd);						

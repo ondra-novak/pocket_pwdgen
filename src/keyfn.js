@@ -135,8 +135,8 @@
 	}
 	
 	PPG.generatePin = function(rnd, cnt, trezor1) {
-		var numbers = ['0','1','2','3','4','5','6','7','8','9'];
-		if (trezor1) numbers.splice(0,1);
+		var numbers = ['0','0','1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8','9','9'];
+		if (trezor1) numbers.splice(0,2);
 		return generatePasswordFromCharset(numbers, rnd, cnt);
 	}
 	
@@ -144,8 +144,20 @@
 		var n = [];
 		for (i = 0; i < 9; i++) n.push(""+i);
 		for (i = 0; i < 26; i++) {
-			n.push(String.fromCharCode(i+65));
-			n.push(String.fromCharCode(i+97));
+			var a;
+			a = String.fromCharCode(i+65);
+			//O => 0
+			//B => 8
+			//G => 6
+			//S => 5
+			//Z => 2
+			if (a != 'O' && a != 'B' && a != 'G' && a!='S' && a!='Z') n.push(a);
+			a = String.fromCharCode(i+97);
+			//l => 1
+			//b => 6
+			//g => 9
+			if (a != 'l' && a != 'b' && a != 'g') n.push(a);
+			
 		}
 		return generatePasswordFromCharset(n, rnd, cnt);
 	}

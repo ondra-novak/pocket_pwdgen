@@ -6,6 +6,7 @@
 	
 	function normalize_domain(text) {
 		text = text.trim();
+		if (text.startsWith('/')) return text.substr(1);
 		if (text.startsWith("http://")) text = text.substr(7);
 		else if (text.startsWith("https://")) text = text.substr(8);
 		
