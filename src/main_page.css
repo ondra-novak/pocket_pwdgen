@@ -31,4 +31,13 @@ div.list button {
 	/* border: 1px solid; */
 	z-index: 2;
 	/* text-align: right; */
+	/* background: url(../img/settings.png) no-repeat center; */
+	background-size: 80%;
+	background-image: url(../img/settings.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 0;
+	height: 1cm;
+	width:  1cm;
+	border: 0;
 }

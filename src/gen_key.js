@@ -77,7 +77,8 @@
 			
 			return new Promise(function(ok,cancel) {
 			
-				var v = this.layout.load("add_key_dlg").v;	
+				var v = this.layout.load("add_key_dlg").v;
+				v.setItemValue("name", (new Date()).toLocaleString())
 				v.setCancelAction(cancel.bind(this,"canceled"), "back" );
 				v.showItem("check", x.check);
 				v.setDefaultAction(function(){

@@ -1,12 +1,33 @@
 <!DOCTYPE html><html><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
+<style>
+#intro {
+height: 100vh;
+position: relative;
+display: flex;
+
+flex-direction: column;
+justify-content: center;
+text-align: center;
+margin: 5vmin;
+font-family: sans-serif;
+font-size: 0.5cm;
+box-sizing: border-box;
+}
+
+#intro img {
+width: 50vmin;
+}
+
+</style>
 
 <meta charset="utf-8" />
 </head>
 <body>
-<div id="intro" style="position:relative">
-<h1 style="position:absolute;left:0;right:0;top:40vh;text-align:center">Pocket Password Manager</h1>
+<div id="intro">
+<div><img src="img/icon256.png"></div>
+<h1>Pocket Password Manager</h1>
 </div>
 
 <template id="welcome_1"><div class="window welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
@@ -88,7 +109,7 @@
 </template>
 
 <template id="generate_key"><div class="genkey window" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button>Nastavení hlavní fráze</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Nastavení hlavní fráze</h1>
 <div class="form">
 <label><span>Zaznamenejte si následující frázi</span>
 <textarea name="passphrase" rows="3"></textarea>
@@ -115,15 +136,12 @@
 </div></template>
 
 <template id="add_key_dlg"><div class="window genkey" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button>Přidat hlavní klíč</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Přidat hlavní klíč</h1>
 <div class="form">
 <label>Pojmenujte nově vytvořený klíč
 <input type="text" name="name">
 </label>
 <div class="error" data-name="errshort">Toto pole nesmí zůstat prázdné</div>
-<label>Hlavní klíč
-<input type="checkbox" name="setprimary" checked="checked">
-</label>
 <label data-name="check"><span data-lang>Zopakujte zadání hlavní fráze<br>(pro kontrolu)</span>
 <textarea name="passphrase" rows="3"></textarea>
 </label>
@@ -156,7 +174,7 @@
 </div></template>
 
 <template id="keylist"><div class="window keylist" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button name="back"> &lt; </button>Správce klíčů</h1>
+<h1><button name="back" class="icon iconback"> &lt; </button>Správce klíčů</h1>
 <div class="form">
 <p name="onekey">V tuto chvíli máte založený jediný klíč uložený pod jménem: <span name="name" class="bold">jmeno</span></p>
 <table name="tbl">
@@ -178,7 +196,7 @@
 </div></template>
 
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button><button class="trash_icon" name="trash">T</button>Heslo</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button><button class="trash_icon" name="trash">T</button>Heslo</h1>
 <div class="form">
 <label>Doména:
 <input type="text" name="site" value=""  readonly="readonly">
@@ -243,7 +261,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </template>
 
 <template id="settings"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button>Nastavení</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Nastavení</h1>
 <div class="panel">
 <button name="keys">Správa klíčů</button>
 <button name="lang">Změna jazyka</button>
@@ -255,7 +273,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div></template>
 
 <template id="wipe"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back"> &lt; </button>Vše smazat</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Vše smazat</h1>
 <div class="form">
 <h2>Opravdu si přejete smazat všechny klíče a nastavení?</h2>
 </div>
@@ -267,7 +285,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </template>
 
 <template id="qrscanner"><div class="window qrscanner">
-<h1><button data-name="back"> &lt; </button>Čtečka QR</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Čtečka QR</h1>
 <div class="error_msg_space">
 <div class="error" name="err_notallow">Fotoaparát je zakázán. Prosím povolte použití fotoaparátu</div>
 <div class="error" name="err_notfound">Pro tuto funkci je vyžadována přítomnost fotoaparátu v zařízení. Fotoaparát však nebyl nalezen nebo není správně zapojen či nastaven</div>

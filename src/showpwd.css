@@ -1,7 +1,7 @@
 .arrows {
 	display:block;
 	width: 1em;
-	padding: 0.5em;
+	padding: 0.1em;
 }
 .left.arrows {
 	float:left;
@@ -56,6 +56,14 @@
 
 .showpwd .trash_icon {
 	float:right;
+	background-image: url(../img/trash.png);
+	background-position: center;
+	background-size: 80%;
+	background-repeat: no-repeat;
+	font-size: 0;
+	width:  1cm;
+	height:  1cm;
+	border: 0;
 }
 
 .showpwd .typesell{

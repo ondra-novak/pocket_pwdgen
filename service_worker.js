@@ -1,10 +1,16 @@
-// timestamp: 1543185955
+// timestamp: 1543360936
 
 var CACHE = 'cache1';
 var static_files = [
 	"start_cs.html",
 	"start_en.html",
-	"img/icon.png",
+	"img/icon256.png",
+	"img/icon128.png",
+	"img/icon64.png",
+	"img/icon32.png",
+	"img/trash.png",
+	"img/settings.png",
+	"img/back.png",
 	"files/code.js",
 	"files/style.css",
 	"manifest.json",
