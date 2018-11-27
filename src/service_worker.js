@@ -13,7 +13,8 @@ var static_files = [
 	"img/back.png",
 	"files/code.js",
 	"files/style.css",
-	"manifest.json",
+	"manifest_cs.json",
+	"manifest_en.json",
 	"index.html"
 	];
 	

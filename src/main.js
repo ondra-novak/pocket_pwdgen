@@ -7,6 +7,7 @@
 //!require key_list.js
 //!require main_page.js
 //!require @svc service_worker.js
+//!require @manifest manifest.json
 //!require settings.js
 //!require qrreader.js
 

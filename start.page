@@ -4,6 +4,7 @@
 !css files/style.css
 !js files/code.js
 !container @svc service_worker.js
+!container @manifest manifest_{{Lang::cs}}.json
 !entry_point PPG.main()
 src/main
  

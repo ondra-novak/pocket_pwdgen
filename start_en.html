@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest_en.json">
 <style>
 #intro {
 height: 100vh;
@@ -27,82 +27,82 @@ width: 50vmin;
 <body>
 <div id="intro">
 <div><img src="img/icon256.png"></div>
-<h1>Pocket Password Manager</h1>
+<h1>Pocket password manager</h1>
 </div>
 
 <template id="welcome_1"><div class="window welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Vítejte v aplikaci Kapesní generátor hesel</h2>
 <p>Toto je malá, ale velice efektivní aplikace na generování a bezpečné uložení silných hesel k internetovým stránkám, nebo k jiným službám na internetu.</p> 
 </div>
 <div class="button_panel button2">
-<button name="back">Přeskočit</button>
+<button name="back">Skip</button>
 <button name="next">Další &gt;&gt;</button>
 </div>
 </div>
 </template>
 
 <template id="welcome_2"><div class="window  welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Jedno heslo vládne všem</h2>
 <p>Zvolte si jedno hlavní heslo nebo frázi a všechna ostatní hesla budou generována pomocí této vybrané fráze</p>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
 </div>
 </template>
 
 <template id="welcome_3"><div class="window  welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Neomezené množství hesel</h2>
 <p>Protože hesla nejsou ukládána, ale jsou generována, aplikace si může pamatovat neomezené množství hesel. Pokud Vás stránka nutí změnit heslo, stačí požádat aplikaci o vygenerování dalšího hesla, atd.</p>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
 </div>
 </template>
 
 <template id="welcome_4"><div class="window  welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Obnovení při ztrátě</h2>
 <p>Protože hesla jsou generována, pokud ztratíte zařízení, stačí na novém zařízení nastavit stejné hlavní heslo a znovu získáte přístup ke všem již vygenerovaným heslům.</p>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
 </div>
 </template>
 
 <template id="welcome_5"><div class="window  welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Offline přístup</h2>
 <p>Aplikace nepoužívá žádné úložiště v internetu. Je schopna plnohodnotně pracovat offline. Díky tomu jsou vaše hesla ještě víc zabezpečená, protože k nim nemá přístup žádná třetí osoba.</p>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
 </div>
 </template>
 
 <template id="welcome_6"><div class="window  welcome" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Vítejte</h1>
+<h1>Welcome</h1>
 <div class="form">
 <h2 class="center">Začínáme</h2>
-<p>Připravte si tajnou frází, která obsahuje několik slov. Zvolte si frázi, kterou učitě nikdo nezná, nebo ji nemůže uhodnout. Doporučuje se také si frázi zapsat na papír a tento papír uschovat na bezpečném místě pro případ nutnosti obnovy.</p>
+<p></p>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back"></button>
 <button name="next">Jdeme na to</button>
 </div>
 </div>
@@ -115,7 +115,7 @@ width: 50vmin;
 <textarea name="passphrase" rows="3"></textarea>
 </label>
 <div class="error" data-name="errshort">Fráze je příliš krátká. Zkuste zadat aspoň 16 písmen</div>
-<label><button class="right" name="randombtn">Nová fráze</button><span>Kontrolní kód: </span>
+<label><button class="right" name="randombtn">Random words</button><span>Check code: </span>
 <input name="checkf" class="checkf" readonly="readonly">
 </label>
 <div class="progress_panel">
@@ -130,23 +130,23 @@ width: 50vmin;
 </div>
 
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
-<button name="generate">Odvodit klíč</button>
+<button name="back">&lt;&lt; Back</button>
+<button name="generate">Generate Key</button>
 </div>
 </div></template>
 
 <template id="add_key_dlg"><div class="window genkey" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back" class="icon iconback"> &lt; </button>Přidat hlavní klíč</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Add key</h1>
 <div class="form">
-<label>Pojmenujte nově vytvořený klíč
+<label>Enter a name
 <input type="text" name="name">
 </label>
-<div class="error" data-name="errshort">Toto pole nesmí zůstat prázdné</div>
+<div class="error" data-name="errshort">Please enter the domain name</div>
 <label data-name="check"><span data-lang>Zopakujte zadání hlavní fráze<br>(pro kontrolu)</span>
 <textarea name="passphrase" rows="3"></textarea>
 </label>
 <div class="error" data-name="notmatch">Zadaná fráze neodpovídá původní frázi. Zkuste to znovu</div>
-<label data-name="check"><span>Kontrolní kód: </span>
+<label data-name="check"><span>Check code: </span>
 <input name="checkf" class="checkf">
 </label>
 <div class="error" data-name="notcodematch">Kontrolní kód je jiný</div>
@@ -159,7 +159,7 @@ width: 50vmin;
 </template>
 
 <template id="add_key_conf"><div class="window genkey_done" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1>Přidat hlavní klíč</h1>
+<h1>Add key</h1>
 <div class="form">
 <svg id="Layer_1" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
 	.st0{fill:#31AF91;}
@@ -174,7 +174,7 @@ width: 50vmin;
 </div></template>
 
 <template id="keylist"><div class="window keylist" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button name="back" class="icon iconback"> &lt; </button>Správce klíčů</h1>
+<h1><button name="back" class="icon iconback"> &lt; </button>Manage keys</h1>
 <div class="form">
 <p name="onekey">V tuto chvíli máte založený jediný klíč uložený pod jménem: <span name="name" class="bold">jmeno</span></p>
 <table name="tbl">
@@ -191,47 +191,47 @@ width: 50vmin;
 </template>
 
 <template id="delconfirm"><div class="modal confirm">
-<p>Opravdu si přejete smazat klíč?: <span name="key"></span></p>
-<p><button name="yes">Ano</button><button name="no">Ne</button>
+<p>Do you really wish to delete the key?: <span name="key"></span></p>
+<p><button name="yes">Yes</button><button name="no">No</button>
 </div></template>
 
 <template id="showpwd"><div class="window showpwd main" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back" class="icon iconback"> &lt; </button><button class="trash_icon" name="trash">T</button>Heslo</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button><button class="trash_icon" name="trash">T</button>Password</h1>
 <div class="form">
-<label>Doména:
+<label>Domain:
 <input type="text" name="site" value=""  readonly="readonly">
 </label>
-<div class="error" data-name="err_notfound">Pozor! Selhalo ověření domény. Zkontrolujte, zda jméno neobsahuje překlep</div>
+<div class="error" data-name="err_notfound">Domain check failed. Please check the name of the domain for typos</div>
 <label><select name="type" class="typesell">
-<option value="pwd">Silné heslo</option>
-<option value="pin4">PIN 4 číslice</option>
-<option value="pin6">PIN 6 číslic</option>
-<option value="pin8">PIN 8 číslic</option>
+<option value="pwd">Strong password</option>
+<option value="pin4">PIN 4 numbers</option>
+<option value="pin6">PIN 6 numbers</option>
+<option value="pin8">PIN 8 numbers</option>
 <option value="pin_trezor1">PIN Trezor One</option>
-<option value="alnum_12">12 písmen a číslic</option>
-<option value="phrase_short">Krátká fráze</option>
-<option value="phrase_long">Dlouhá fráze</option>
+<option value="alnum_12">12 letters or digits</option>
+<option value="phrase_short">Short passphrase</option>
+<option value="phrase_long">Long passphrase</option>
 </select>
-<span class="order">Pozice: <span name="order">0</span></span>
+<span class="order">Position: <span name="order">0</span></span>
 <input type="text" name="pwd" value=""  readonly="readonly">
 </label>
 </div>
 <div class="options form">
 <div class="button2 panel">
-<button name="prev"><span class="left arrows">&lt;&lt;</span> Předchozí<br>heslo</button>
+<button name="prev"><span class="left arrows">&lt;&lt;</span> Prev. password</button>
 <button name="next"><span class="right arrows">&gt;&gt;</span>Další<br>heslo</button>
 </div>
-<label name="dkey">Použít jiný klíč
+<label name="dkey">Use other keys
 <select name="chngkey"><option value="">--vyber klíč--</option></select>
 </label>
 <div class="button2  panel">
-<button name="restore">Vrátit</button>
+<button name="restore">Restore</button>
 </div>
 
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt;Zpět</button>
-<button name="remember">Uložit</button>
+<button name="back">&lt;&lt;Back</button>
+<button name="remember">Save</button>
 </div>
 </div></template>
 <template id="longclicknote"><div class="longclicknote">
@@ -239,59 +239,59 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div></template>
 
 <template id="mainscreen"><div class="window main"  data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button class="keyman_icon" name="keyman_icon">K</button>Správce hesel</h1>
+<h1><button class="keyman_icon" name="keyman_icon">K</button>Password manager</h1>
 <div class="form">
-<label>Doména nebo jméno stránky:
+<label>Domain or name of the page:
 <input type="text" name="site" value="" placeholder="example.com">
 </label>
-<div class="error" data-name="errshort">Pole nesmí být prázdné</div>
+<div class="error" data-name="errshort">This box should not be empty</div>
 
-<h2>Poslední zadané</h2>
+<h2>Recently used</h2>
 <div class="list">
 <button data-name="recent[]"></button>
 </div>
-<p data-name="empty">Zatím tu nic není</p>
+<p data-name="empty">Nothing is here...</p>
 </div>
 <div class="button_panel button2">
-<button name="scanqr">Skenuj QR</button>
-<button name="showpwd">Ukaž Heslo</button>
+<button name="scanqr">Scan QR</button>
+<button name="showpwd">Show</button>
 </div>
 
 </div>
 </template>
 
 <template id="settings"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back" class="icon iconback"> &lt; </button>Nastavení</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Settings</h1>
 <div class="panel">
-<button name="keys">Správa klíčů</button>
-<button name="lang">Změna jazyka</button>
-<button name="reset">Vše smazat</button>
+<button name="keys">Manage keys</button>
+<button name="lang">Change language</button>
+<button name="reset">Delete All</button>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back">&lt;&lt; Back</button>
 </div>
 </div></template>
 
 <template id="wipe"><div class="window settings" data-open-anim="anim_open"  data-close-anim="anim_close">
-<h1><button data-name="back" class="icon iconback"> &lt; </button>Vše smazat</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>Delete All</h1>
 <div class="form">
-<h2>Opravdu si přejete smazat všechny klíče a nastavení?</h2>
+<h2>Do you really wish to delete all keys and settings</h2>
 </div>
 <div class="button_panel button2">
-<button name="back">Ne</button>
-<button name="ok">Ano</button>
+<button name="back">No</button>
+<button name="ok">Yes</button>
 </div>
 </div>
 </template>
 
 <template id="qrscanner"><div class="window qrscanner">
-<h1><button data-name="back" class="icon iconback"> &lt; </button>Čtečka QR</h1>
+<h1><button data-name="back" class="icon iconback"> &lt; </button>QR Reader</h1>
 <div class="error_msg_space">
 <div class="error" name="err_notallow">Fotoaparát je zakázán. Prosím povolte použití fotoaparátu</div>
 <div class="error" name="err_notfound">Pro tuto funkci je vyžadována přítomnost fotoaparátu v zařízení. Fotoaparát však nebyl nalezen nebo není správně zapojen či nastaven</div>
 <div class="error" name="err_notwork">Fotoaparát ve vašem zařízení zřejmě nefunguje</div>
 <div class="error" name="err_security">Z bezpečnostních důvodů vaše zařízení blokuje použití fotoaparátu. Prosím zajištěte odstranění blokace.</div>
-<div class="error" name="err_internal">Nastala neznámá chyba:<spam name="err_name"></spam></div>
+<div class="error" name="err_internal">Unknown error:<spam name="err_name"></spam></div>
 </div>
 <canvas name="out-canvas" class="hidden_canvas"  width="320" height="240"></canvas>
 
@@ -311,7 +311,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div>
 </div>
 <div class="button_panel button2">
-<button name="back">&lt;&lt; Zpět</button>
+<button name="back">&lt;&lt; Back</button>
 </div>
 
 </div></template>

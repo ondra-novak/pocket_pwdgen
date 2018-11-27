@@ -1,4 +1,4 @@
-// timestamp: 1543360936
+// timestamp: 1543362659
 
 var CACHE = 'cache1';
 var static_files = [
@@ -13,7 +13,8 @@ var static_files = [
 	"img/back.png",
 	"files/code.js",
 	"files/style.css",
-	"manifest.json",
+	"manifest_cs.json",
+	"manifest_en.json",
 	"index.html"
 	];
 	

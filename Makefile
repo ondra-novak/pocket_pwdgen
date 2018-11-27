@@ -11,7 +11,7 @@ clean:
 	rm -rf $(ALL_BUILDS:.html=.css)
 	rm -rf $(ALL_BUILDS:.html=.js) 
 	rm -rf $(ALL_BUILDS:.html=.d)
-	rm -rf $(DEBUG_BUILDS:.html=.d)
+	rm -rf $(DEBUG_BUILDS:.html=.d) 
 
 files:
 	mkdir files
