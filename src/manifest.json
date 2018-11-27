@@ -1,6 +1,5 @@
 {
   "name": "{{Kapesní správce hesel}}",
-  "short_name": "PPM",
   "theme_color": "#a3c8ff",
   "background_color": "#eeeeee",
   "display": "standalone",
