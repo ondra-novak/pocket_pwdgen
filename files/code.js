@@ -1433,7 +1433,12 @@ PPG.KeyStore = {
 			return this.list_data("sites");
 		},
 		reset: function() {
-			indexedDB.deleteDatabase["ppg_storage"];
+			this.db.close()			
+			return new Promise(function(ok,error) {
+				var request =  indexedDB.deleteDatabase("ppg_storage");
+				request.onsuccess = ok;
+				request.onerror=error;
+			}.bind(this));						
 		}
 	
 	}
@@ -11278,11 +11283,9 @@ PPG.domain_sfx={"ac":false,
 			v.setCancelAction(ok,"back");
 
 			v.setItemEvent("ok","click",function(){
-				var k = Object.keys(localStorage);
-				k.forEach(function(x){
-					delete localStorage[x];
-				});
-				location.href="index.html";
+				PPG.KeyStoreIDB.reset().then(function(){
+					location.href="index.html";
+					});
 			})
 		}.bind(this));
 	};

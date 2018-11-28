@@ -202,7 +202,12 @@ PPG.KeyStore = {
 			return this.list_data("sites");
 		},
 		reset: function() {
-			indexedDB.deleteDatabase["ppg_storage"];
+			this.db.close()			
+			return new Promise(function(ok,error) {
+				var request =  indexedDB.deleteDatabase("ppg_storage");
+				request.onsuccess = ok;
+				request.onerror=error;
+			}.bind(this));						
 		}
 	
 	}

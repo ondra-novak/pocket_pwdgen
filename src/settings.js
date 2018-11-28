@@ -32,11 +32,9 @@
 			v.setCancelAction(ok,"back");
 
 			v.setItemEvent("ok","click",function(){
-				var k = Object.keys(localStorage);
-				k.forEach(function(x){
-					delete localStorage[x];
-				});
-				location.href="index.html";
+				PPG.KeyStoreIDB.reset().then(function(){
+					location.href="index.html";
+					});
 			})
 		}.bind(this));
 	};
