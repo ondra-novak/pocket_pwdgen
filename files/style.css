@@ -5,9 +5,8 @@
 }
 
 html {
-	font-size: 0.5cm;
-	font-family: sans-serif;
-	background: linear-gradient(to bottom, #a9b7c9 1cm,#eee 2cm,#eee 55%,#ced5ff 100%);
+    font-size: 0.5cm;
+    font-family: sans-serif;
 }
 
 body {
@@ -18,7 +17,10 @@ body {
 	overflow-x:hidden;
 	position: relative;
 	transition: 500ms all;
-	/* box-sizing: border-box; */
+	background-image: linear-gradient(to bottom, #a9b7c9 1cm,#eee 2cm,#eee 55%,#ced5ff 100%);
+	background-repeat: no-repeat;
+	background-color: #ced5ff;
+	background-position: 0px 0px;
 }
 
 input, button, select{
@@ -222,6 +224,17 @@ span[name=back]:active {
 .anim_close .form{
 	animation: anim_close 0.3s 1;
 }
+
+.anim_slideup .form {
+	animation: open_slideup 300ms 1 ;
+}
+.anim_slidedown .form {
+	animation: close_slidedown 0.3s 1;
+}
+.anim_slidedown {
+	animation: anim_close_delay 0.3s 1;
+}
+
 @keyframes anim_close_delay {
 	0%{	
 	opacity:1;
@@ -251,6 +264,29 @@ span[name=back]:active {
 	transform: translate(0,0)  scale(1,1);
 	}
 }
+
+@keyframes open_slideup {
+	0%{	
+	opacity:0;
+	transform: translate(0,5%) scale(1,0.95);
+	}
+	100%{
+		opacity:1;
+		transform: translate(0,0) scale(1,1);
+	}
+}
+@keyframes close_slidedown {
+	100%{	
+	opacity:0;
+	transform: translate(0,5%)  scale(1,0.95);
+	}
+	0%{	
+	opacity:1;
+	transform: translate(0,0)  scale(1,1);
+	}
+}
+
+
 .bold {
 	font-weight: bold;
 }
@@ -421,6 +457,33 @@ textarea[name=passphrase] {
 	padding: 5px;
 	background-color: yellow;
 	box-shadow: 1vh 1vh 2vh rgb(0,0,0,0.5);
+}
+.pinpad table {
+	width: 100%;
+}
+
+
+.pinpad p {
+	text-align: center;
+	letter-spacing: 5vmin;
+	font-size: 7vmin;
+	padding: 0;
+	margin: 0.5em 1em;
+	/* border: 1px solid; */
+	background-color: white;
+	height: 1.2em;
+}
+.pinpad table td {
+	text-align: center;
+	padding: 2vh 0px;
+}
+
+.pinpad table button {
+	/* text-align: center; */
+	width: 25vmin;
+	height: 12vh;
+	font-size: 5vh;
+	/* padding: 0vmin 0; */
 }
 .main input {
 	text-align: center;

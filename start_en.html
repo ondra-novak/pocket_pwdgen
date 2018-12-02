@@ -36,7 +36,7 @@ width: 50vmin;
 <h2 class="center">Vítejte v aplikaci Kapesní generátor hesel</h2>
 <p>Toto je malá, ale velice efektivní aplikace na generování a bezpečné uložení silných hesel k internetovým stránkám, nebo k jiným službám na internetu.</p> 
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">Skip</button>
 <button name="next">Další &gt;&gt;</button>
 </div>
@@ -49,7 +49,7 @@ width: 50vmin;
 <h2 class="center">Jedno heslo vládne všem</h2>
 <p>Zvolte si jedno hlavní heslo nebo frázi a všechna ostatní hesla budou generována pomocí této vybrané fráze</p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
@@ -62,7 +62,7 @@ width: 50vmin;
 <h2 class="center">Neomezené množství hesel</h2>
 <p>Protože hesla nejsou ukládána, ale jsou generována, aplikace si může pamatovat neomezené množství hesel. Pokud Vás stránka nutí změnit heslo, stačí požádat aplikaci o vygenerování dalšího hesla, atd.</p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
@@ -75,7 +75,7 @@ width: 50vmin;
 <h2 class="center">Obnovení při ztrátě</h2>
 <p>Protože hesla jsou generována, pokud ztratíte zařízení, stačí na novém zařízení nastavit stejné hlavní heslo a znovu získáte přístup ke všem již vygenerovaným heslům.</p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
@@ -88,7 +88,7 @@ width: 50vmin;
 <h2 class="center">Offline přístup</h2>
 <p>Aplikace nepoužívá žádné úložiště v internetu. Je schopna plnohodnotně pracovat offline. Díky tomu jsou vaše hesla ještě víc zabezpečená, protože k nim nemá přístup žádná třetí osoba.</p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back"></button>
 <button name="next">Další &gt;&gt;</button>
 </div>
@@ -101,7 +101,7 @@ width: 50vmin;
 <h2 class="center">Začínáme</h2>
 <p></p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back"></button>
 <button name="next">Jdeme na to</button>
 </div>
@@ -129,7 +129,7 @@ width: 50vmin;
 </ul>
 </div>
 
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">&lt;&lt; Back</button>
 <button name="generate">Generate Key</button>
 </div>
@@ -151,7 +151,7 @@ width: 50vmin;
 </label>
 <div class="error" data-name="notcodematch">Kontrolní kód je jiný</div>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">&lt;&lt; Back</button>
 <button name="ok">Save</button>
 </div>
@@ -167,7 +167,7 @@ width: 50vmin;
 </style><g><circle class="st0" cx="64" cy="64" r="64"/></g><g><path class="st1" d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z"/></g></svg>
 <h2>Klíč byl nastaven</h2>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="ok">OK</button>
 </div>
 
@@ -229,7 +229,7 @@ width: 50vmin;
 </div>
 
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">&lt;&lt;Back</button>
 <button name="remember">Save</button>
 </div>
@@ -237,6 +237,30 @@ width: 50vmin;
 <template id="longclicknote"><div class="longclicknote">
 Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sekundu
 </div></template>
+
+<template id="pinpad"><div class="window pinpad" data-open-anim="anim_slideup" data-close-anim="anim_slidedown">
+<h1><button name="back" class="icon iconback"> &lt; </button>Zadejte PIN</h1>
+<div class="form">
+<p class="dots" name="dots"></p>
+<table>
+<tr><td><button name="7">7</button></td>
+	<td><button name="8">8</button></td>
+	<td><button name="9">9</button></td></tr>
+<tr><td><button name="4">4</button></td>
+	<td><button name="5">5</button></td>
+	<td><button name="6">6</button></td></tr>
+<tr><td><button name="1">1</button></td>
+	<td><button name="2">2</button></td>
+	<td><button name="3">3</button></td></tr>
+<tr><td colspan="3"><button name="0">0</button></td></tr>
+</table>
+</div>
+<div class="button_panel button2 fixedWidth">
+<button name="back">&lt;&lt; Back</button>
+<button name="ok">Ok</button>
+</div>
+</div></template>
+
 
 <template id="mainscreen"><div class="window main"  data-open-anim="anim_open"  data-close-anim="anim_close">
 <h1><button class="keyman_icon" name="keyman_icon">K</button>Password manager</h1>
@@ -252,7 +276,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div>
 <p data-name="empty">Nothing is here...</p>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="scanqr">Scan QR</button>
 <button name="showpwd">Show</button>
 </div>
@@ -267,7 +291,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 <button name="lang">Change language</button>
 <button name="reset">Delete All</button>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">&lt;&lt; Back</button>
 </div>
 </div></template>
@@ -277,7 +301,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 <div class="form">
 <h2>Do you really wish to delete all keys and settings</h2>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">No</button>
 <button name="ok">Yes</button>
 </div>
@@ -310,7 +334,7 @@ Pro smazání profilu stránky, podržte prosím tlačítko déle než jednu sek
 </div>
 </div>
 </div>
-<div class="button_panel button2">
+<div class="button_panel button2 fixedWidth">
 <button name="back">&lt;&lt; Back</button>
 </div>
 

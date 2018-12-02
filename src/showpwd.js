@@ -3,6 +3,7 @@
 //!require keyfn.js
 //!require keystore.js
 //!require domain_norm.js
+//!require pinpad.js
 
 (function(){
 	
@@ -84,9 +85,11 @@
 				}
 
 				
-				checkDNS(site).then(function(x) {
-					if (!x) v.mark("err_notfound");
-				})
+				if (newsite) {
+					checkDNS(site).then(function(x) {				
+						if (!x) v.mark("err_notfound");
+					});
+				}
 				
 				return PPG.KeyStoreIDB.list().then(function(klist) {
 					v.showItem("dkey",klist.length>1);

@@ -53,7 +53,22 @@
 		}
 	};
 	
+	function fixScreenSize() {
+		var w = document.documentElement.clientWidth;
+		var h = document.documentElement.clientHeight;
+		if (h < w) w = h;
+		
+		var sheet = document.createElement('style')
+		
+		document.body.style.width=w+"px";
+		sheet.innerHTML = ".fixedWidth {width: "+w+"px !important;}";
+		document.body.appendChild(sheet);		
+		document.body.style.width = w+"px";
+	}
+	
 	PPG.start = function() {
+		
+		fixScreenSize();
 		
 		window.addEventListener("hashchange", PPG.hash_router.bind(PPG));
 		PPG.KeyStoreIDB.init().then(function() {
