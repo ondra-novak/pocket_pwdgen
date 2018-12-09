@@ -11281,7 +11281,7 @@ PPG.askPassphrase=function() {
 			} else {
 				return true;
 			}
-		})
+		},function() {return true;});
 	}
 	
 	function askForPswd() {
@@ -11292,7 +11292,7 @@ PPG.askPassphrase=function() {
 			} else {
 				return "";
 			}
-		})
+		},function(){return "";});
 		
 	}
 	

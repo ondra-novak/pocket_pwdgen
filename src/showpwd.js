@@ -19,7 +19,7 @@
 			} else {
 				return true;
 			}
-		})
+		},function() {return true;});
 	}
 	
 	function askForPswd() {
@@ -30,7 +30,7 @@
 			} else {
 				return "";
 			}
-		})
+		},function(){return "";});
 		
 	}
 	
