@@ -1,5 +1,9 @@
 <template id="pinpad"><div class="window pinpad" data-open-anim="anim_slideup" data-close-anim="anim_slidedown">
-<h1><button name="back" class="icon iconback"> &lt; </button>{{Zadejte PIN}}</h1>
+<h1><button name="back" class="icon iconback"> &lt; </button>
+<span name="normal" class="selector">{{Zadejte PIN}}</span>
+<span name="new"  class="selector">{{Zadejte nový PIN}}</span>
+<span name="verify" class="selector">{{Znovu zadejte stejný PIN}}</span>
+</h1>
 <div class="form">
 <p class="dots" name="dots"></p>
 <table>

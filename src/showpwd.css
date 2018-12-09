@@ -31,12 +31,14 @@
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-out;
-	background-color: lime;
+	background-color: #78ff78;
+	background-image: none;
 }
 
 .showpwd button[name=remember]:disabled {
 	animation: none;
 	background-color: inherit;
+	/* background-image: none; */
 }	
 
 @keyframes pulse {

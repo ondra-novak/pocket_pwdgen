@@ -166,7 +166,11 @@ light-box {
 	display:block;
 	position: relative;
 	margin: 1rem 0;
-	min-height: 2rem;
+	min-height: 2rem;	
+}
+
+.form label.right_space {
+	padding-right: 2em;
 }
 
 .form label input , .form label textarea, .form label select{
@@ -185,7 +189,7 @@ light-box {
 		width: 2rem;
 		height: 2rem;
 		padding: 0;
-		margin:0;
+		margin: 0;
 }
 
 .button2 button {
@@ -308,4 +312,12 @@ button.icon {
 
 button.iconback {
 	background-image: url(../img/back.png);
+}
+
+.selector {
+	display:none;
+}
+
+.selector.mark {
+	display: initial;
 }

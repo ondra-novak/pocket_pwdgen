@@ -4,16 +4,46 @@
 //!require keystore.js
 //!require domain_norm.js
 //!require pinpad.js
+//!require ask_passphrase.js
 
 (function(){
 	
 	"use strict";
 	
 	
+	function checkPin() {
+		return PPG.KeyStoreIDB.getPIN()
+		.then(function(x) {
+			if (x) {
+				return PPG.showPinpad(function(a) {return x == a;}, "normal");
+			} else {
+				return true;
+			}
+		})
+	}
+	
+	function askForPswd() {
+		return PPG.KeyStoreIDB.getEnablePassphrase()
+		.then(function(x) {
+			if (x) {
+				return PPG.askPassphrase();
+			} else {
+				return "";
+			}
+		})
+		
+	}
+	
 	PPG.showpwd = function(site) {
 		var site = PPG.normalize_domain(site)
+		var passphrase;
 		
-		return PPG.KeyStoreIDB.getSite(site)
+		return checkPin()
+			.then(askForPswd)
+			.then(function(x){
+				passphrase = x;
+			})
+			.then(PPG.KeyStoreIDB.getSite.bind(PPG.KeyStoreIDB,site))
 			.then(function(siteInfo) {
 			var origSiteInfo;
 			var newsite = false;
@@ -41,7 +71,7 @@
 			
 			function update(v) {
 				return PPG.KeyStoreIDB.get(siteInfo.key).then(function(secret) {
-					var krnd = PPG.prepareKey(secret, site, siteInfo.index);
+					var krnd = PPG.prepareKey(secret, passphrase, site, siteInfo.index);
 					v.setItemValue("chngkey", siteInfo.key);
 					var pwd;
 					switch (siteInfo.type) {
@@ -140,7 +170,10 @@
 					});
 				});
 			}.bind(this));			
-		}.bind(this));
+		}.bind(this))
+		.catch(function(){
+			return true;
+		})
 	};
 	
 	

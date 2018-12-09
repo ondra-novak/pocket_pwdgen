@@ -208,7 +208,19 @@ PPG.KeyStore = {
 				request.onsuccess = ok;
 				request.onerror=error;
 			}.bind(this));						
-		}
+		},
+		getPIN: function() {
+			return this.get_data("config","pin").then(function(x){return x.value;});
+		},
+		setPIN: function(v) {
+			return this.put_data("config",{id:"pin",value:v});
+		},
+		getEnablePassphrase: function() {
+			return this.get_data("config","enable_passphrase").then(function(x){return x.value;});
+		},
+		setEnablePassphrase: function(v) {
+			return this.put_data("config",{id:"enable_passphrase",value:v});
+		},
 	
 	}
 })();

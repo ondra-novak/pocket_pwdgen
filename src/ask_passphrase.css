@@ -1,0 +1,17 @@
+.ask_passphrase div.form {
+	margin-top: 20vh;
+	text-align: center;
+} 
+
+.ask_passphrase div.form input{
+	text-align: center;
+	/* letter-spacing: 0.3em; */
+	font-size: 1.5em;
+} 
+
+.ask_passphrase div.form input[type=checkbox]{
+		width: 2rem;
+		height: 2rem;
+		vertical-align: middle;
+		margin: -0.5rem 0.5rem 0 0.5rem;
+} 

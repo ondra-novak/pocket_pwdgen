@@ -6,11 +6,13 @@
 (function(){
 	"use strict";
 	
-	function showPinpad(checkfn, tries) {
+	function showPinpad(checkfn, prompt, tries) {
 		if (!tries) tries = 0;		
 		return new Promise(function(ok,cancel) {
 									
 			var v = PPG.layout.load("pinpad").v;
+
+			v.mark(prompt);
 			
 			function reset(){
 				v.setItemValue("dots","");
@@ -48,7 +50,7 @@
 					else {
 						++tries;
 						if (tries == 3) cancel();
-						else ok(showPinpad(checkfn,tries));
+						else ok(showPinpad(checkfn,prompt, tries));
 					}
 				},reset);				
 			},"ok");

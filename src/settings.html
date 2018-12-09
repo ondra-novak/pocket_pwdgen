@@ -2,6 +2,7 @@
 <h1><button data-name="back" class="icon iconback"> &lt; </button>{{Nastavení}}</h1>
 <div class="panel">
 <button name="keys">{{Správa klíčů}}</button>
+<button name="security">{{Zabezpečení}}</button>
 <button name="lang">{{Změna jazyka}}</button>
 <button name="reset">{{Vše smazat}}</button>
 </div>
@@ -21,3 +22,35 @@
 </div>
 </div>
 </template>
+
+<template id="security"><div class="window security" data-open-anim="anim_open"  data-close-anim="anim_close">
+<h1><button data-name="back" class="icon iconback"> &lt; </button>{{Zabezpečení}}</h1>
+<div class="form">
+<label  class="right_space">{{Vyžadovat PIN}}
+<input type="checkbox" name="needpin">
+</label>
+<ul class="note">
+<li>{{POZOR: PIN neochrání aplikaci pokud útočník dokáže použít vývojářské nástroje k jeho obejití}}</li>
+<li>{{Při ztrátě PIN postačí aplikaci smazat a obnovit nastavení pomocí uložené fráze}}</li>
+</ul>
+
+<label class="right_space">{{Vyžadovat zadání dodatečné tajné fráze}}
+<input type="checkbox" name="needpps">
+</label>
+<ul class="note">
+<li>{{Dodatečná tajná fráze doplňuje klíč a hesla se odvozují z kombinace klíče a fráze}}</li>
+<li>{{Tato fráze se neukládá v aplikaci}}</li>
+<li>{{Funkce dodatečné tajné fráze dobře ochrání hesla i v případě, že útočník má přístup k vývojářským nástrojům}}</li>
+<li>{{Pokud ztratíte dodatečnou tajnou frázi, ztratíte též přístup k uloženým heslům}}</li>
+<li>{{Pokud zadáte dodatečnou tajnou frázi špatně, obdržíte jiná hesla}}</li>
+<li>{{Současná hesla naleznete pod prádnou tajnou frází}}</li>
+</ul>
+</div>
+<div class="button_panel button2 fixedWidth">
+<button name="back">&lt;&lt; {{Zpět}}</button>
+</div>
+</div></template>
+
+
+</div>
+

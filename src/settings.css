@@ -8,6 +8,7 @@
     width: 37vmin;
     height: 27vmin;
     border: 0;
+    overflow-wrap: break-word;
     /* background: linear-gradient(to bottom, #c3cbd4 0%,#dbdbdb 65%,#d1d1d1 66%,#fefefe 100%); */
 }
 

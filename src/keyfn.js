@@ -5,7 +5,10 @@
 
 (function(){
 	
-	function prepareKey(secret, domain, index) {
+	function prepareKey(secret, passphrase,  domain, index) {
+		if (passphrase) {
+			secret = CryptoJS.HmacSHA256(passphrase,secret).toString();;
+		}
 		var msg = domain+"|"+index;
 		var c = CryptoJS.HmacSHA256(msg,secret);
 		return new RND(c.toString());
