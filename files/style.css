@@ -596,10 +596,6 @@ div.list button {
 	/* box-sizing: border-box; */
 	border: 1px solid;
 	background-color: #444;
-	background-image: url(../img/camera_placeholder.png);
-	background-size: 30%;
-	background-position: center;
-	background-repeat: no-repeat;
 }
 
 .qrscanner .video_space video {
