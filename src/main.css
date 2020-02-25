@@ -179,6 +179,7 @@ light-box {
 	padding: 0.5rem 0;
 	margin: 0.5rem 0;
 	box-sizing: border-box;
+	font-family: monospace;
 }
 .form label input[type=checkbox] {
 		position: absolute;
