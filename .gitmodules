@@ -3,4 +3,4 @@
 	url = https://github.com/ondra-novak/template.js.git
 [submodule "wappbuilder"]
 	path = wappbuilder
-	url = http://github.com/ondra-novak/wappbuilder
+	url = https://github.com/ondra-novak/wappbuilder.git
