@@ -1,6 +1,6 @@
-// timestamp: 1544973667
+// timestamp: 1601132224
 
-var CACHE = 'cache1';
+var CACHE = 'cache2';
 var static_files = [
 	"start_cs.html",
 	"start_en.html",
@@ -28,7 +28,7 @@ self.addEventListener('install', function(evt) {
 
 self.addEventListener('activate', function(evt) {
 	  console.log('ACTIVATE');
-	  evt.waitUntil(clients.claim());
+	  evt.waitUntil(Promise.all([clients.claim(),delOldCaches()]));
 });
 
 self.addEventListener('fetch', function(evt) {
@@ -46,6 +46,18 @@ self.addEventListener('fetch', function(evt) {
 		  }));
 	  }
 });
+
+function delOldCaches() {
+    return caches.keys().then(function(cacheNames) {
+        return Promise.all(
+          cacheNames.filter(function(cacheName) {
+        	  return cacheName != CACHE;
+          }).map(function(cacheName) {
+            return caches.delete(cacheName);
+          })
+        );
+      });
+}
 
 function precache() {
 	  return caches.open(CACHE).then(function (cache) {

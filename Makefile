@@ -11,20 +11,24 @@ clean:
 	rm -rf $(ALL_BUILDS:.html=.css)
 	rm -rf $(ALL_BUILDS:.html=.js) 
 	rm -rf $(ALL_BUILDS:.html=.d)
-	rm -rf $(DEBUG_BUILDS:.html=.d) 
+	rm -rf $(DEBUG_BUILDS:.html=.d)
+	rm wappbuild 
 
 files:
 	mkdir files
 	
 deps:
 	mkdir deps
+wappbuild:
+	$(MAKE) -C wappbuilder
+	mv wappbuilder/wappbuild .
 
 define RELEASE_template =
-%_$(1).html: %.page | files deps;	wappbuild -pd "$${addprefix deps/,$$(@:.html=.d)}" -L $(1)_lang.csv -G $(1)_genlang.csv -c -B $$*_$(1) "$$<" 
+%_$(1).html: %.page wappbuild | files deps;	./wappbuild -pd "$${addprefix deps/,$$(@:.html=.d)}" -L $(1)_lang.csv -G $(1)_genlang.csv -c -B $$*_$(1) "$$<" 
 endef
 
 define DEBUG_template =
-%_$(1)_debug.html: %.page | files deps;	wappbuild -pd "$${addprefix deps/,$$(@:.html=.d)}" -L $(1)_lang.csv -B $$*_$(1)_debug "$$<" 
+%_$(1)_debug.html: %.page wappbuild | files deps;	./wappbuild -pd "$${addprefix deps/,$$(@:.html=.d)}" -L $(1)_lang.csv -B $$*_$(1)_debug "$$<" 
 endef
 
 $(foreach n,$(TARGETS),$(eval $(call RELEASE_template,$(n))))
